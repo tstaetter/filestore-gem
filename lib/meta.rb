@@ -33,13 +33,13 @@ module FileStore
 		# Returns the closed file handle of the used file
 		#
 		def self.serialize(path_to, meta)
+			path = File.join(path_to, SERIALIZED_FILE)
+			
 			begin
 				raise FileStoreException, "Given object is not an object of type MemoryMetaManager" if not meta.is_a?(MemoryMetaManager)
 				raise FileStoreException, "Given path is not suitable" if not File.directory?(path_to)
 				
 				require 'yaml'
-				
-				path = File.join(path_to, SERIALIZED_FILE)
 				
 				File.open(path, 'w+') do |f|
     				YAML.dump(meta, f)
@@ -55,13 +55,13 @@ module FileStore
 		#
 		def self.deserialize(path_from)
 			mm = nil
+			path = File.join(path_from, SERIALIZED_FILE)
 			
 			begin
 				raise FileStoreException, "Given path is not suitable" if not File.directory?(path_from)
 				
 				require 'yaml'
 				
-				path = File.join(path_from, SERIALIZED_FILE)
     			mm = YAML.load_file(path)
     			
     			raise FileStoreException, "File content is not a valid MemoryMetaManager" if not raw.is_a?(FileStore::MemoryMetaManager)
@@ -97,6 +97,20 @@ module FileStore
 			
 			return @mgmt[id] if @mgmt.has_key?(id)
 			nil
+		end
+		#
+		# TODO Add test case for this method
+		#
+		def get_metadata_by_field_and_value(field, value)
+			results = []
+			
+			@mgmt.each_value do |md| 
+				md.data.each { |k, v|
+					if k == field and v == value then results << md end
+				}
+			end
+			
+			return results
 		end
 		
 		def raw_data

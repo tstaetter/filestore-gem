@@ -19,13 +19,14 @@ module FileStore
 		
 		@type = 'UNDEFINED'
 		
-		def initialize(id)
+		def initialize(id, msg = "")
 			raise FileStoreException, "No identifier given for action" if id.nil?
 			raise FileStoreException, "Identifier can only be of type String or Numeric" if (not id.is_a?(String) and not id.is_a?(Numeric))
 			raise FileStoreException, "Identifier can't be empty" if id.is_a?(String) and id == ''
 			
 			@identifier = id
 			@status = @@STATUS_NOT_STARTED
+			@msg = msg
 		end
 		
 		def execute(&block)

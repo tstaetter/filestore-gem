@@ -19,18 +19,18 @@ module FileStore
 	end
 
 	class FileStore
-		@@STORE_ROOT = 'filestore'
-		@@DELETED_ROOT = 'deleted'
+		STORE_ROOT = 'filestore'
+		DELETED_ROOT = 'deleted'
 		
-		def initialize(basePath = ".", metaManager)
+		def initialize(metaManager, basePath = ".")
 			raise FileStoreException, "Invalid base path given" if (basePath.nil? or 
 				not File.exists?(basePath) or
 				not File.directory?(basePath) or
 				not basePath.is_a?(String) or
 				basePath == '')
 		
-			@storePath = File.join(basePath, @@STORE_ROOT)
-			@deletedPath = File.join(basePath, @@DELETED_ROOT)
+			@storePath = File.join(basePath, STORE_ROOT)
+			@deletedPath = File.join(basePath, DELETED_ROOT)
 			
 			begin
 				FileUtils.mkdir_p(@storePath) if not Dir.exists?(@storePath)
@@ -52,7 +52,7 @@ module FileStore
 			
 			if File.exists?(path) and File.readable?(path) then
 				id = UUIDTools::UUID.random_create.to_s
-				action = AddAction.new(id)
+				action = AddAction.new(id, "Origin: #{path}")
 				
 				action.execute {
 					dstPath = move(@storePath, id, path)
@@ -72,7 +72,8 @@ module FileStore
 		
 		def -(id)
 			if @metaManager[id] != nil then
-				action = DeleteAction.new(id)
+				md = @metaManager[id]
+				action = DeleteAction.new(id, "Origin: #{md.path}")
 				
 				action.execute {
 					raise "Couldn't move file" if move(@deletedPath, id, @metaManager[id].path) == ''
@@ -85,7 +86,7 @@ module FileStore
 			end
 		end
 		
-		private
+		protected
 		
 		def move(basePath, id, srcPath)
 			dstPath = ''
