@@ -25,6 +25,52 @@ module FileStore
 	end
 	
 	class MemoryMetaManager < MetaManager
+		SERIALIZED_FILE = "meta-data.yaml"
+		
+		#
+		# Serializes the given data (taken from MemoryMetaManager::raw_data) to the given 
+		# path using MemoryMetaManager::SERIALIZED_FILE as file name.
+		# Returns the closed file handle of the used file
+		#
+		def self.serialize(path_to, meta)
+			begin
+				raise FileStoreException, "Given object is not an object of type MemoryMetaManager" if not meta.is_a?(MemoryMetaManager)
+				raise FileStoreException, "Given path is not suitable" if not File.directory?(path_to)
+				
+				require 'yaml'
+				
+				path = File.join(path_to, SERIALIZED_FILE)
+				
+				File.open(path, 'w+') do |f|
+    				YAML.dump(meta, f)
+				end
+			rescue Exception => e
+				raise FileStoreException, "Couldn't serialize meta store to file #{path}", e.backtrace
+			end
+		end
+		#
+		# Deserializes the meta store from the given path using MemoryMetaManager::SERIALIZED_FILE 
+		# as file name.
+		# Returns an instance of type MemoryMetaManager or nil if some error occurrs
+		#
+		def self.deserialize(path_from)
+			mm = nil
+			
+			begin
+				raise FileStoreException, "Given path is not suitable" if not File.directory?(path_from)
+				
+				require 'yaml'
+				
+				path = File.join(path_from, SERIALIZED_FILE)
+    			mm = YAML.load_file(path)
+    			
+    			raise FileStoreException, "File content is not a valid MemoryMetaManager" if not raw.is_a?(FileStore::MemoryMetaManager)
+			rescue Exception => e
+				raise FileStoreException, "Couldn't load meta store from file #{path}", e.backtrace
+			ensure
+				return mm
+			end
+		end
 		
 		def initialize
 			# must be a hash object
@@ -51,6 +97,10 @@ module FileStore
 			
 			return @mgmt[id] if @mgmt.has_key?(id)
 			nil
+		end
+		
+		def raw_data
+			@mgmt
 		end
 		
 	end

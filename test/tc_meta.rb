@@ -96,6 +96,27 @@ class TestMemoryMetaManager < Test::Unit::TestCase
 			mm["asdf"]
 			mm[2421]
 		}
-		assert_nil(mm[2343], "Nil wasn't returned althought the given key wasn't existing")
+		assert_nil(mm[2343], "Nil wasn't returned although the given key wasn't existing")
+	end
+	
+	def test_serialize
+		mm = FileStore::MemoryMetaManager.new {{}}
+		
+		md = FileStore::MetaData.new(234,{})
+		mm << md
+		md2 = FileStore::MetaData.new("asdf",{})
+		mm << md2
+		
+		assert_nothing_raised { FileStore::MemoryMetaManager.serialize(".", mm) }
+		assert_raise(FileStore::FileStoreException) { FileStore::MemoryMetaManager.serialize("/some/invalid/path", mm) }
+		assert_raise(FileStore::FileStoreException) { FileStore::MemoryMetaManager.serialize(".", {}) }
+	end
+	
+	def test_deserialize
+		assert_nothing_raised {
+			mm = FileStore::MemoryMetaManager.deserialize(".")
+			puts mm
+			puts "deserialized data is of type #{mm.class.name}"
+		}
 	end
 end
