@@ -8,7 +8,5 @@ TODOS
 =====
 
 - DOCUMENTATION
-- Multi-tenancy
-- Implement ACL?
 - Possibility to rollback actions
 - Add test cases

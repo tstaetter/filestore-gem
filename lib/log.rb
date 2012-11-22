@@ -1,39 +1,28 @@
 #
 # log.rb
 # @author Thomas Stätter
-# @date 09.07.2012
-# @description Library using a file system as storage for arbitrary files
+# @date 2012/11/07
+# @description 
 #
-$:.unshift('.')
-
-require 'filestore.rb'
+require 'date'
+require 'log4r'
+require 'singleton'
 
 module FileStore
-
-	class Log
-		FILE = 'filestore-actions.log'
+	#
+	# Logging facility class
+	#
+	class Logger
+		include Singleton
 		
-		def initialize(path = '.')
-			begin
-				@logPath = File.join(path, FILE)
-				@logFile = File.new(@logPath, 'a+')
-			rescue StandardError => e
-				raise FileStoreException, "Initialization of logger failed", e.backtrace
-			end
-		end
-		
-		def <<(action)
-			return if not action.is_a? Action				
-			
-			@logFile.puts action.to_s
-		end
-		
-		def close
-			begin
-				@logFile.close
-			rescue StandardError => e
-				raise FileStoreException, "Couldn't properly close the logger", e.backtrace
-			end
+		attr_reader :logger
+		#
+		# Creates a new logging facility
+		#
+		def initialize
+			@logger = Log4r::Logger.new 'FileStore'
+			@logger.outputters = Log4r::StdoutOutputter.new(:level => Log4r::WARN, 
+                    	:formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d - %m"))
 		end
 	end
 
