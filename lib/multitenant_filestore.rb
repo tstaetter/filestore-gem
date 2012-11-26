@@ -11,19 +11,31 @@ require 'log.rb'
 require 'uuidtools'
 require 'fileutils'
 require 'yaml'
+require 'singleton'
 
 module FileStore
 	#
-	# Class implementing a multitenant file store
+	# Singleton class implementing a multitenant file store
 	#
 	class MultiTenantFileStore
-		attr_reader :stores
+		# Make this class a singleton class
+		include Singleton
+		# Accessors
+		attr_reader :stores, :rootPath
 		#
 		# Initializes a new instance of MultiTenantFileStore
-		# @rootPath The path where all file stores are located
 		#
-		def initialize(rootPath = '.')
-			raise FileStoreException, "Given root path isn't accessable" if not File.directory?(rootPath)
+		def initialize()
+			@rootPath = Dir.getwd
+			@stores = {}
+		end
+		#
+		# Sets the root path of the multitenant store. As FileStore::MultiTenantFileStore
+		# is a singleton class, this method must be used before any other
+		# @param rootPath The path to be used
+		#
+		def set_root_path(rootPath)
+			raise FileStoreException, "Root path #{rootPath} doesn't exist" if not File.exists?(rootPath)
 			
 			@rootPath = rootPath
 			@stores = MultiTenantFileStore.recover(rootPath)

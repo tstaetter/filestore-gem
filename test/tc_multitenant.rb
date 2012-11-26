@@ -11,16 +11,16 @@ require 'fileutils'
 
 include FileStore
 
-basePath = "/Users/thomas/Documents/DEV/ruby/FileStoreGEM/test/multi_store_test"
-testFile = "/Users/thomas/Documents/DEV/ruby/FileStoreGEM/test/testfile.txt"
+basePath = "/Users/thomas/Documents/DEV/ruby/FileStoreRepo/test/multi_store_test"
+testFile = "/Users/thomas/Documents/DEV/ruby/FileStoreRepo/test/testfile.txt"
 
 begin
-	mtfs = MultiTenantFileStore.new basePath
-	tenant = mtfs.create_tenant_store
-	mtfs.add_to_tenant tenant, testFile, { :hugo => "boss" }
+	MultiTenantFileStore.instance.set_root_path basePath
+	tenant = MultiTenantFileStore.instance.create_tenant_store
+	MultiTenantFileStore.instance.add_to_tenant tenant, testFile, { :hugo => "boss" }
 	
-	puts mtfs.stores
-	mtfs.shutdown
+	puts MultiTenantFileStore.instance.stores
+	MultiTenantFileStore.instance.shutdown
 rescue Exception => e
 	puts e
 	puts e.backtrace
