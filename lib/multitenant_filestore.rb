@@ -120,6 +120,12 @@ module FileStore
 			return @stores[tenant].get(id)
 		end
 		#
+		# Determines wether a tenant is registered
+		# @param id The ID of the tenant to be tested
+		#
+		def has_tenant?(id)
+		end
+		#
 		# Shuts down this multitenant store
 		#
 		def shutdown

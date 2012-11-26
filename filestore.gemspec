@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
   s.name        = 'filestore'
-  s.version     = '0.0.4'
+  s.version     = '0.0.5'
   s.date        = '2012-11-22'
   s.summary     = "Simple file storage"
   s.description = "Organizes a file storage using the file system and some meta data"
   s.authors     = ["Thomas Stätter"]
   s.email       = 'thomas.staetter@gmail.com'
-  s.files       = ["lib/filestore.rb", "lib/memory_meta.rb", "lib/log.rb", "lib/meta_manager.rb", "lib/multitenant_filestore.rb"]
+  s.files       = ["filestore.rb", "lib/filestore.rb", "lib/memory_meta.rb", "lib/log.rb", "lib/meta_manager.rb", "lib/multitenant_filestore.rb"]
   s.test_files	= ["test/tc_filestore.rb", "test/tc_multitenant.rb"]
   s.homepage    = 'https://www.xing.com/profile/thomas.staetter'
   s.required_ruby_version = '>= 1.9.3'
