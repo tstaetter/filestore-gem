@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'filestore'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2012-11-22'
   s.summary     = "Simple file storage"
   s.description = "Organizes a file storage using the file system and some meta data"
