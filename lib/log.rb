@@ -1,8 +1,8 @@
 #
 # log.rb
-# @author Thomas Stätter
-# @date 2012/11/07
-# @description 
+#
+# author: Thomas Stätter
+# date: 2012/11/07 
 #
 require 'date'
 require 'log4r'
@@ -10,7 +10,7 @@ require 'singleton'
 
 module FileStore
 	#
-	# Logging facility class
+	# Singleton logging facility class
 	#
 	class Logger
 		include Singleton

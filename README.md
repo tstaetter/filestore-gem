@@ -10,3 +10,8 @@ TODOS
 - DOCUMENTATION
 - Possibility to rollback actions
 - Add test cases
+
+USAGE
+=====
+
+see test/tc_multitenant.rb for an example

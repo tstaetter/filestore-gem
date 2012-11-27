@@ -1,8 +1,8 @@
 #
 # multitenant_filestore.rb
-# @author Thomas Stätter
-# @date 2012/11/21
-# @description
+#
+# author: Thomas Stätter
+# date: 2012/11/21
 #
 
 require 'filestore.rb'
@@ -32,7 +32,9 @@ module FileStore
 		#
 		# Sets the root path of the multitenant store. As FileStore::MultiTenantFileStore
 		# is a singleton class, this method must be used before any other
-		# @param rootPath The path to be used
+		#
+		# Arguments:
+		# 	rootPath: The path to be used
 		#
 		def set_root_path(rootPath)
 			raise FileStoreException, "Root path #{rootPath} doesn't exist" if not File.exists?(rootPath)
@@ -42,16 +44,20 @@ module FileStore
 		end
 		#
 		# Creates a new file store for a tenant
-		# @param id The optional ID of the tenant. If omitted, an ID will be created
+		#
+		# Arguments:
+		# 	id: The optional ID of the tenant. If omitted, an ID will be created
 		#			automatically
-		# @returns The tenants ID
+		#
+		# Returns:
+		#	The tenants ID
 		#
 		def create_tenant_store(id = '')
 			id = UUIDTools::UUID.random_create.to_s if id == '' or id.nil?
 			
 			begin
 				path = File.join(@rootPath, id)
-				FileUtils.mkdir path
+				FileUtils.mkdir path if not File.directory?(path)
 				mm = MemoryMetaManager.new(File.join(path, "meta.yaml"))
 				sfs = SimpleFileStore.new(mm, path)
 			
@@ -64,7 +70,9 @@ module FileStore
 		end
 		#
 		# Permanently removes a tenant's store
-		# @param id The tenant's ID
+		#
+		# Arguments:
+		# 	id: The tenant's ID
 		#
 		def remove_tenant_store(id)
 			raise FileStoreException, "Tenant #{id} can't be removed. Not registered." if not @stores.key?(id)
@@ -78,8 +86,12 @@ module FileStore
 		end
 		#
 		# Returns the complete file store for a given tenant
-		# @param id The tenant's id
-		# @returns An instance of FileStore::SimpleFileStore
+		#
+		# Arguments:
+		# 	id: The tenant's ID
+		#
+		# Returns:
+		#	An instance of FileStore::SimpleFileStore
 		#
 		def get_tenant_store(id)
 			raise FileStoreException, "Tenant #{id} not registered. No file store given." if not @stores.key?(id)
@@ -88,30 +100,38 @@ module FileStore
 		end
 		#
 		# Adds a file to the tenant's store
-		# @param tenant The tenant's ID
-		# @param file The file to be added
-		# @param md Optional meta data
+		#
+		# Arguments:
+		# 	tenant: The tenant's ID
+		# 	file: The file to be added
+		# 	md: Optional meta data
 		#
 		def add_to_tenant(tenant, file, md = {})
-			raise FileStoreException, "Tenant #{id} not registered. File can't be added." if not @stores.key?(tenant)
+			raise FileStoreException, "Tenant #{tenant} not registered. File #{file} can't be added." if not @stores.key?(tenant)
 			
 			@stores[tenant].add(file, md)
 		end
 		#
 		# Removes a file from the tenant's store
-		# @param tenant The tenant's ID
-		# @param id The ID of the file to be removed
+		#
+		# Arguments:
+		# 	tenant: The tenant's ID
+		# 	id: The ID of the file to be removed
 		#
 		def remove_from_tenant(tenant, id)
-			raise FileStoreException, "Tenant #{id} not registered. File can't be removed." if not @stores.key?(tenant)
+			raise FileStoreException, "Tenant #{tenant} not registered. File with ID {id} can't be removed." if not @stores.key?(tenant)
 			
 			@stores[tenant].remove(id)
 		end
 		#
 		# Retrieves a file from the tenant's store
-		# @param tenant The tenant's ID
-		# @param id The file's ID
-		# @returns A hash containing the file object (:path) and the corresponding meta
+		#
+		# Arguments:
+		# 	tenant: The tenant's ID
+		# 	file: The file to be retrieved
+		#
+		# Returns:
+		#	A hash containing the file object (:path) and the corresponding meta
 		# 			data (:data)
 		#
 		def get_from_tenant(tenant, id)
@@ -121,9 +141,12 @@ module FileStore
 		end
 		#
 		# Determines wether a tenant is registered
-		# @param id The ID of the tenant to be tested
+		#
+		# Arguments:
+		# 	tenant: The tenant's ID to be tested
 		#
 		def has_tenant?(id)
+			return @stores.key?(id)
 		end
 		#
 		# Shuts down this multitenant store
@@ -138,7 +161,9 @@ module FileStore
 		private
 		#
 		# Recovers a multitenant store
-		# @param rootPath The base path of the multitenant store
+		#
+		# Arguments:
+		# 	rootPath: The base path of the multitenant store
 		#
 		def self.recover(rootPath)
 			raise FileStoreException, "Root path #{rootPath} isn't a valid multitenant store" if not File.directory?(rootPath)
@@ -149,7 +174,7 @@ module FileStore
 				begin
 					if File.directory?(e)
 						tenant = File.basename(e)
-						mm = MemoryMetaManager.new(File.join(e, "meta.yaml"))
+						mm = MemoryMetaManager.new(File.join(e, MemoryMetaManager::FILE))
 						sfs = SimpleFileStore.new(mm, e)
 				
 						stores[tenant] = sfs

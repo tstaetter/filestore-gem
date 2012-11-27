@@ -1,8 +1,8 @@
 #
 # memory_meta.rb
-# @author Thomas Stätter
-# @date 2012/11/08
-# @description
+#
+# author: Thomas Stätter
+# date: 2012/11/08
 #
 require 'yaml'
 require 'filestore.rb'
@@ -15,17 +15,19 @@ module FileStore
 	#
 	class MemoryMetaManager < MetaManager
 		# Constant defining the default file path
-		@@FILE = './meta.yaml'
+		FILE = 'meta.yaml'
 		# Accessor for the file to store data to
 		attr_reader :file
 		#
 		# Creates a new instance of MemoryMetaManager
-		# @param persistentFile The file where the manager class is persisted to
+		#
+		# Arguments:
+		# 	persistentFile: The file where the manager class is persisted to
 		#
 		def initialize(persistentFile = '')
 			@data = Hash.new
 			@removed = Hash.new
-			@file = (persistentFile.nil? or persistentFile == '')? @@FILE : persistentFile
+			@file = (persistentFile.nil? or persistentFile == '')? MemoryMetaManager::FILE : persistentFile
 			
 			begin
 				if File.exists?(@file)
@@ -43,7 +45,7 @@ module FileStore
 				
 		end
 		#
-		# @see MetaManager::get_data
+		# see: MetaManager::get_data
 		#
 		def get_data(id)
 			raise FileStoreException, "No meta data available for ID #{id}" if not @data.key?(id)
@@ -51,7 +53,7 @@ module FileStore
 			return @data[id]
 		end
 		#
-		# @see MetaManager::add_or_update
+		# see: MetaManager::add_or_update
 		#
 		def add_or_update(id, metaData)
 			raise FileStoreException, "Only hashsets can be added" if not metaData.is_a?(Hash)
@@ -60,7 +62,7 @@ module FileStore
 			@data[id] = (@data.key?(id) ? @data[id].merge!(metaData) : @data[id] = metaData)
 		end
 		#
-		# @see MetaManager::remove
+		# see: MetaManager::remove
 		#
 		def remove(id)
 			raise FileStoreException, "Only Strings can be used as keys" if not id.is_a?(String)
@@ -70,7 +72,7 @@ module FileStore
 			@data.delete(id)
 		end
 		#
-		# @see MetaManager::restore
+		# see: MetaManager::restore
 		#
 		def restore(id)
 			raise FileStoreException, "Only Strings can be used as keys" if not id.is_a?(String)
@@ -80,7 +82,7 @@ module FileStore
 			@removed.delete(id)
 		end
 		#
-		# see MetaManager::shutdown
+		# see: MetaManager::shutdown
 		#
 		def shutdown
 			begin
@@ -94,7 +96,7 @@ module FileStore
 			end
 		end
 		#
-		# @see MetaManager::has_id?
+		# see: MetaManager::has_id?
 		#
 		def has_id?(id)
 			@data.key?(id)

@@ -1,8 +1,8 @@
 #
 # filestore.rb
-# @author Thomas Stätter
-# @date 2012/11/07
-# @description
+#
+# author: Thomas Stätter
+# date: 2012/11/07
 #
 
 require 'meta_manager.rb'
@@ -40,8 +40,10 @@ module FileStore
 		attr_reader :metaManager, :rootPath, :storePath, :deletedPath, :rollbackPath, :metaFile
 		#
 		# Initializes a new instance of SimpleFileStore
-		# @param metaManager The meta data manager instance to be used by this store
-		# @param rootPath The path where the file store resides
+		#
+		# Arguments:
+		# 	metaManager: The meta data manager instance to be used by this store
+		# 	rootPath: The path where the file store resides
 		#
 		def initialize(metaManager, rootPath = '.')
 			raise FileStoreException, "Root path already locked" if SimpleFileStore.is_directory_locked?(rootPath)		
@@ -70,10 +72,14 @@ module FileStore
 		end
 		#
 		# Adds a file to the store
-		# @param file The file to be stored
-		# @param meta Optional meta data to be stored along with the physical file
-		# @param shouldMove Determines wether to original file should be deleted
-		# @returns The newly created ID for the file
+		#
+		# Arguments:
+		# 	file: The file to be stored
+		# 	meta: Optional meta data to be stored along with the physical file
+		# 	shouldMove: Determines wether to original file should be deleted
+		#
+		# Returns:
+		#	The newly created ID for the file
 		#
 		def add(file, meta = {}, shouldMove = true)
 			raise FileStoreException, "File #{file} not found" if not File.exists?(file)
@@ -104,8 +110,12 @@ module FileStore
 		end
 		#
 		# Retrieves a file identified by it's ID
-		# @param id The files ID to retrieve
-		# @returns A hash of file object (:path) and corresponding meta data (:data)
+		#
+		# Arguments:
+		# 	id: The files ID to retrieve
+		#
+		# Returns: 
+		#	A hash of file object (:path) and corresponding meta data (:data)
 		#			representing the file in the store
 		#
 		def get(id)
@@ -121,7 +131,9 @@ module FileStore
 		end
 		#
 		# Moves a file from the current to the deleted store
-		# @param id The ID identifying the file to be moved
+		#
+		# Arguments:
+		# 	id: The ID identifying the file to be moved
 		#
 		def remove(id)
 			raise FileStoreException, "No file ID given for removal" if id == '' or id.nil?
@@ -142,7 +154,9 @@ module FileStore
 		end
 		#
 		# Restores a file identified by it's id
-		# @param id The file ID
+		#
+		# Arguments:
+		# 	id: The file ID
 		#
 		def restore(id)
 			raise FileStoreException, "No file ID given for restore" if id == '' or id.nil?
@@ -211,7 +225,9 @@ module FileStore
 		end
 		#
 		# Creates a new file ID
-		# @returns A string representing the file's ID
+		#
+		# Returns:
+		# 	A string representing the file's ID
 		#
 		def self.get_id(store)
 			for i in 0..2 do	
@@ -240,7 +256,9 @@ module FileStore
 		end
 		#
 		# Setup for a new file store directory
-		# @param store The file store instance to set up
+		#
+		# Arguments:
+		# 	store: The file store instance to set up
 		#
 		def self.create_store(store)
 			Logger.instance.logger.info "Trying to create store in #{store.storePath}"
@@ -272,7 +290,9 @@ module FileStore
 		end
 		#
 		# Recover an existing file store
-		# @param store The file store instance to recover
+		#
+		# Arguments:
+		# 	store: The file store instance to recover
 		#
 		def self.recover_store(store)
 			# trying to recover existing file store
