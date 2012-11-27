@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class FileStore::SimpleFileStore - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/filestore.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-add">#add</a>
+    
+    <li><a href="#method-i-get">#get</a>
+    
+    <li><a href="#method-i-locked-3F">#locked?</a>
+    
+    <li><a href="#method-i-remove">#remove</a>
+    
+    <li><a href="#method-i-restore">#restore</a>
+    
+    <li><a href="#method-i-shutdown">#shutdown</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../test/testfile_txt.html">testfile</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../FileStore.html">FileStore</a>
+  
+    <li><a href="../FileStore/FileStoreException.html">FileStore::FileStoreException</a>
+  
+    <li><a href="../FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="../FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
+  
+    <li><a href="../FileStore/MetaManager.html">FileStore::MetaManager</a>
+  
+    <li><a href="../FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
+  
+    <li><a href="../FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class FileStore::SimpleFileStore</h1>
+
+  <div id="description" class="description">
+    
+<p>Main library class implementing a simple file store used for storing and
+managing  arbitrary files</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="DELETED_ROOT">DELETED_ROOT
+        
+        <dd class="description"><p>The base name of the directory for storing deleted files</p>
+        
+      
+        <dt id="META_FILE">META_FILE
+        
+        <dd class="description"><p>Name of the meta file describing the current file store</p>
+        
+      
+        <dt id="ROLLBACK_ROOT">ROLLBACK_ROOT
+        
+        <dd class="description"><p>The base name of the directory storing files extracted from file store by a
+rollback action</p>
+        
+      
+        <dt id="STORE_LOCK_FILE">STORE_LOCK_FILE
+        
+        <dd class="description"><p>Name of the lock file</p>
+        
+      
+        <dt id="STORE_ROOT">STORE_ROOT
+        
+        <dd class="description"><p>The base name of the file store directory</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-deletedPath" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">deletedPath</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Accessors for important properties</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-metaFile" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">metaFile</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Accessors for important properties</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-metaManager" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">metaManager</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Accessors for important properties</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-rollbackPath" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">rollbackPath</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Accessors for important properties</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-rootPath" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">rootPath</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Accessors for important properties</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-storePath" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">storePath</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Accessors for important properties</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(metaManager, rootPath = '.')</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Initializes a new instance of <a
+href="SimpleFileStore.html">SimpleFileStore</a></p>
+
+<p>Arguments:</p>
+
+<pre>metaManager: The meta data manager instance to be used by this store
+rootPath: The path where the file store resides</pre>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/filestore.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">metaManager</span>, <span class="ruby-identifier">rootPath</span> = <span class="ruby-string">'.'</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;Root path already locked&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">is_directory_locked?</span>(<span class="ruby-identifier">rootPath</span>)               
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;FileStore root path #{rootPath} doesn't exist&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">rootPath</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;FileStore root path #{rootPath} isn't writable&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">writable?</span>(<span class="ruby-identifier">rootPath</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;No meta data manager given&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">metaManager</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;Meta data manager must be of type FileStore::MetaManager&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">metaManager</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">MetaManager</span>)
+        
+        <span class="ruby-ivar">@metaManager</span> = <span class="ruby-identifier">metaManager</span>
+        <span class="ruby-ivar">@rootPath</span> = <span class="ruby-identifier">rootPath</span>
+        <span class="ruby-ivar">@storePath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@rootPath</span>, <span class="ruby-constant">STORE_ROOT</span>)
+        <span class="ruby-ivar">@deletedPath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@rootPath</span>, <span class="ruby-constant">DELETED_ROOT</span>)
+        <span class="ruby-ivar">@rollbackPath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@rootPath</span>, <span class="ruby-constant">ROLLBACK_ROOT</span>)
+        <span class="ruby-ivar">@metaFile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@rootPath</span>, <span class="ruby-constant">META_FILE</span>)
+        <span class="ruby-ivar">@locked</span> = <span class="ruby-keyword">false</span>
+        
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-comment"># Try to recover existing store</span>
+                <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">recover_store</span>(<span class="ruby-keyword">self</span>)
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">FileStoreException</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                <span class="ruby-comment"># Recovery failed, trying to create the store</span>
+                <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">create_store</span>(<span class="ruby-keyword">self</span>)
+        <span class="ruby-keyword">end</span>
+        
+        <span class="ruby-identifier">lock</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-add" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add</span><span
+            class="method-args">(file, meta = {}, shouldMove = true)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds a file to the store</p>
+
+<p>Arguments:</p>
+
+<pre>file: The file to be stored
+meta: Optional meta data to be stored along with the physical file
+shouldMove: Determines wether to original file should be deleted</pre>
+
+<p>Returns:</p>
+
+<pre>The newly created ID for the file</pre>
+          
+
+          
+          <div class="method-source-code" id="add-source">
+            <pre><span class="ruby-comment"># File lib/filestore.rb, line 84</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">meta</span> = {}, <span class="ruby-identifier">shouldMove</span> = <span class="ruby-keyword">true</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;File #{file} not found&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">file</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;File #{file} isn't readable&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;File #{file} can't be removed&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">writable?</span>(<span class="ruby-identifier">file</span>)
+        
+        <span class="ruby-identifier">meta</span> = {} <span class="ruby-keyword">if</span> <span class="ruby-identifier">meta</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">id</span> = <span class="ruby-string">&quot;&quot;</span>
+        
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-identifier">dir</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_daily_directory</span>(<span class="ruby-ivar">@storePath</span>)
+                <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Adding file #{file} to directory #{dir}&quot;</span>
+                <span class="ruby-identifier">id</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_id</span>(<span class="ruby-keyword">self</span>)
+                <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Using file id #{id}&quot;</span>
+                <span class="ruby-identifier">dstPath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-identifier">id</span>)
+                <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Created destination path #{dstPath}&quot;</span>
+        
+                <span class="ruby-identifier">shouldMove</span> <span class="ruby-operator">?</span> <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Moving file&quot;</span>) <span class="ruby-operator">:</span> <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Copying file&quot;</span>)
+                <span class="ruby-identifier">shouldMove</span> <span class="ruby-operator">?</span> (<span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mv</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">dstPath</span>)) <span class="ruby-operator">:</span> (<span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">copy_file</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">dstPath</span>))
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Couldn't add file #{file} to store.&quot;</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>
+        <span class="ruby-keyword">end</span>
+        
+        <span class="ruby-identifier">meta</span>[<span class="ruby-value">:path</span>] = <span class="ruby-identifier">dstPath</span>
+        <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">add_or_update</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">meta</span>)
+        
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">id</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add-method -->
+
+    
+      <div id="method-i-get" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get</span><span
+            class="method-args">(id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Retrieves a file identified by it’s ID</p>
+
+<p>Arguments:</p>
+
+<pre>id: The files ID to retrieve</pre>
+
+<p>Returns:</p>
+
+<pre>A hash of file object (:path) and corresponding meta data (:data)
+                representing the file in the store</pre>
+          
+
+          
+          <div class="method-source-code" id="get-source">
+            <pre><span class="ruby-comment"># File lib/filestore.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">id</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;No ID given&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-string">''</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;No file for ID #{id} found&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">has_id?</span>(<span class="ruby-identifier">id</span>)
+        
+        <span class="ruby-identifier">md</span> = <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">get_data</span>(<span class="ruby-identifier">id</span>)
+        <span class="ruby-identifier">path</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">:path</span>]
+
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;No valid meta data found for ID #{id}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">md</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">path</span>)
+        
+        <span class="ruby-keyword">return</span> { <span class="ruby-value">:path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">path</span>), <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">md</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get-method -->
+
+    
+      <div id="method-i-locked-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">locked?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Determines wether this store is locked</p>
+          
+
+          
+          <div class="method-source-code" id="locked-3F-source">
+            <pre><span class="ruby-comment"># File lib/filestore.rb, line 190</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">locked?</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-ivar">@locked</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- locked-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- locked-3F-method -->
+
+    
+      <div id="method-i-remove" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">remove</span><span
+            class="method-args">(id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Moves a file from the current to the deleted store</p>
+
+<p>Arguments:</p>
+
+<pre>id: The ID identifying the file to be moved</pre>
+          
+
+          
+          <div class="method-source-code" id="remove-source">
+            <pre><span class="ruby-comment"># File lib/filestore.rb, line 138</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remove</span>(<span class="ruby-identifier">id</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;No file ID given for removal&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-string">''</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;File ID for removal not found in store&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">has_id?</span>(<span class="ruby-identifier">id</span>)
+        
+        <span class="ruby-identifier">file</span> = <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">get_data</span>(<span class="ruby-identifier">id</span>)[<span class="ruby-value">:path</span>]
+        
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">remove</span>(<span class="ruby-identifier">id</span>)
+                
+                <span class="ruby-identifier">dir</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_daily_directory</span>(<span class="ruby-ivar">@deletedPath</span>)
+                <span class="ruby-identifier">dstPath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-identifier">id</span>)
+                
+                <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">move</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">dstPath</span>)
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Couldn't move file #{file} to deleted store.\n#{e.message}&quot;</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- remove-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- remove-method -->
+
+    
+      <div id="method-i-restore" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">restore</span><span
+            class="method-args">(id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Restores a file identified by it’s id</p>
+
+<p>Arguments:</p>
+
+<pre>id: The file ID</pre>
+          
+
+          
+          <div class="method-source-code" id="restore-source">
+            <pre><span class="ruby-comment"># File lib/filestore.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">restore</span>(<span class="ruby-identifier">id</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;No file ID given for restore&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-string">''</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">nil?</span>
+        
+        <span class="ruby-identifier">md</span> = <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">restore</span>(<span class="ruby-identifier">id</span>)
+        <span class="ruby-identifier">file</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">:path</span>]
+        
+        <span class="ruby-keyword">begin</span>
+                <span class="ruby-identifier">dir</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_daily_directory</span>(<span class="ruby-ivar">@storePath</span>)
+                <span class="ruby-identifier">dstPath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-identifier">id</span>)
+                
+                <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">move</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">dstPath</span>)
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Couldn't restore file #{file} from deleted store.\n#{e.message}&quot;</span>
+                <span class="ruby-comment">#</span>
+                <span class="ruby-comment"># Delete restored entry from metaManager</span>
+                <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">id</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- restore-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- restore-method -->
+
+    
+      <div id="method-i-shutdown" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">shutdown</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Shuts down the file store</p>
+          
+
+          
+          <div class="method-source-code" id="shutdown-source">
+            <pre><span class="ruby-comment"># File lib/filestore.rb, line 182</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">shutdown</span>
+        <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">shutdown</span>
+        
+        <span class="ruby-identifier">release_lock</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- shutdown-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- shutdown-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
