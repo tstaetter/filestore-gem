@@ -96,9 +96,9 @@ module FileStore
 				Logger.instance.logger.info "Using file id #{id}"
 				dstPath = File.join(dir, id)
 				Logger.instance.logger.info "Created destination path #{dstPath}"
-			
-				shouldMove ? Logger.instance.logger.info("Moving file") : Logger.instance.logger.info("Copying file")
-				shouldMove ? (FileUtils.mv(file, dstPath)) : (FileUtils.copy_file(file, dstPath))
+				
+				shouldMove ? (Logger.instance.logger.info("Moving file"); FileUtils.mv(file, dstPath)) : 
+					(Logger.instance.logger.info("Copying file"); FileUtils.copy_file(file, dstPath))
 			rescue Exception => e
 				raise FileStoreException, "Couldn't add file #{file} to store.", e.backtrace
 			end

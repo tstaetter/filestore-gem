@@ -86,7 +86,7 @@ module FileStore
 		#
 		def shutdown
 			begin
-				File.open(@file, "w+") do |fh|
+				File.open(@file, "wb+") do |fh|
 					YAML.dump({:current => @data, :removed => @removed}, fh)
 				end
 				
