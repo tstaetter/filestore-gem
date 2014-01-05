@@ -3,7 +3,6 @@
 # @author Thomas Stätter
 # @date 2014/01/05
 #
-require_relative '../module.rb'
 require './classes.rb'
 require 'test/unit'
 

@@ -4,8 +4,6 @@
 # author: Thomas Stätter
 # date: 2012/11/08
 #
-require "../module.rb"
-
 module FileStore
 	#
 	# Class implementing a memory based MetaManager

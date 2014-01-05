@@ -5,7 +5,6 @@
 # @date 2012/11/21
 # @description Test script
 #
-require_relative '../module.rb'
 require './classes.rb'
 require 'test/unit'
 

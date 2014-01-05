@@ -4,7 +4,7 @@
 # author: Thomas Stätter
 # date: 2012/11/21
 #
-require "../module.rb"
+require 'filestore'
 
 module FileStore
 	#
@@ -37,7 +37,7 @@ module FileStore
 			raise FileStoreException, "Root path #{rootPath} doesn't exist" if not File.exists?(rootPath)
 			
 			@rootPath = rootPath
-			@stores = MultiTenantFileStore.recover(rootPath)
+			@stores = MultiTenantFileStore.recover(rootPath, @logger)
 		end
 		#
 		# Creates a new file store for a tenant
@@ -55,8 +55,8 @@ module FileStore
 			begin
 				path = File.join(@rootPath, id)
 				FileUtils.mkdir path if not File.directory?(path)
-				mm = MemoryMetaManager.new(File.join(path, "meta.yaml"), self.logger)
-				sfs = SimpleFileStore.new(mm, path, self.logger)
+				mm = MemoryMetaManager.new File.join(path, "meta.yaml"), @logger
+				sfs = SimpleFileStore.new mm, path, @logger
 			
 				@stores[id] = sfs
 				
@@ -168,7 +168,7 @@ module FileStore
 		# Arguments:
 		# 	rootPath: The base path of the multitenant store
 		#
-		def self.recover(rootPath)
+		def self.recover(rootPath, logger)
 			raise FileStoreException, "Root path #{rootPath} isn't a valid multitenant store" if not File.directory?(rootPath)
 			
 			stores = {}
@@ -177,13 +177,13 @@ module FileStore
 				begin
 					if File.directory?(e)
 						tenant = File.basename(e)
-						mm = MemoryMetaManager.new(File.join(e, MemoryMetaManager::FILE))
-						sfs = SimpleFileStore.new(mm, e)
+						mm = MemoryMetaManager.new File.join(e, MemoryMetaManager::FILE), logger
+						sfs = SimpleFileStore.new mm, e, @logger
 				
 						stores[tenant] = sfs
 					end
 				rescue Exception => e
-					@logger.error "Couldn't create store for tenant #{tenant}.\n#{e.message}"
+					logger.error "Couldn't create store for tenant #{tenant}.\n#{e.message}"
 				end
 			}
 			

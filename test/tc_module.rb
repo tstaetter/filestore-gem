@@ -4,9 +4,7 @@
 # @date 2014/01/05
 #
 require 'test/unit'
-require '../module.rb'
-
-include FileStore
+require './classes.rb'
 
 class TestModule < Test::Unit::TestCase
     

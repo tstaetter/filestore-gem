@@ -3,7 +3,7 @@
 # @author Thomas Stätter
 # @date 2012/11/14
 #
-require_relative '../module.rb'
+# require 'filestore'
 require './classes.rb'
 require 'test/unit'
 

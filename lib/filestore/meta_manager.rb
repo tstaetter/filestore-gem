@@ -4,7 +4,6 @@
 # author: Thomas Stätter
 # date: 2012/11/08
 #
-
 module FileStore
 	#
 	# Base class for implementing a meta manager class. This class is used for storing

@@ -4,8 +4,6 @@
 # author: Thomas Stätter
 # date: 2014/01/05
 #
-require "../module.rb"
-
 module FileStore
   #
   # Class FileStore::ObserverAction is used to encapsulate information 
