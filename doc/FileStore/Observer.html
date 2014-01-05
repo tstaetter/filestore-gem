@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>module FileStore::Logger - RDoc Documentation</title>
+<title>module FileStore::Observer - RDoc Documentation</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/log.rb
+    <li>lib/observer.rb
   </ul>
 </nav>
 
@@ -58,7 +58,19 @@
     
     
     
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
     
+    <li><a href="#method-c-included">::included</a>
+    
+    <li><a href="#method-i-notify">#notify</a>
+    
+  </ul>
+</nav>
+
   </div>
 
   <div id="project-metadata">
@@ -113,11 +125,15 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="module">module FileStore::Logger</h1>
+  <h1 class="module">module FileStore::Observer</h1>
 
   <div id="description" class="description">
     
-<p>Mix-in module for logging capabilities</p>
+<p>Module <a href="Observer.html">FileStore::Observer</a> can be mixed in to
+implement a  observer. Observers are notified about actions occurring in
+the observed subject, an instance of FileStore::SimpleStore or <a
+href="MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>,
+respectively.</p>
 
   </div><!-- description -->
 
@@ -132,30 +148,85 @@
     
 
     
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
-
-      
-      <div id="attribute-i-logger" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">logger</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>Accessor for the logging facility. Any logging facility must implement the
-methods ‘info’, ‘warn’, ‘error’ and ‘debug’</p>
-        
-        </div>
-      </div>
-      
-    </section><!-- attribute-method-details -->
-    
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-included" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">included</span><span
+            class="method-args">(klass)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Module hook executed after the inclusion. Currently nothing happens here</p>
+          
+
+          
+          <div class="method-source-code" id="included-source">
+            <pre><span class="ruby-comment"># File lib/observer.rb, line 131</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">klass</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- included-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- included-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-notify" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">notify</span><span
+            class="method-args">(msg, subject)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Method called via the observed subject to inform observers about an action
+occurred in the observed subject. Override this method to fit your needs.</p>
+
+<p>Arguments:</p>
+
+<pre>msg: Some information about the action
+subject: A reference to the observed object</pre>
+          
+
+          
+          <div class="method-source-code" id="notify-source">
+            <pre><span class="ruby-comment"># File lib/observer.rb, line 142</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">notify</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">subject</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- notify-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- notify-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->

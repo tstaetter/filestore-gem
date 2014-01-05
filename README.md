@@ -14,4 +14,15 @@ TODOS
 USAGE
 =====
 
-see test/tc_multitenant.rb for an example
+Example:
+
+MultiTenantFileStore.instance.set_root_path "<some_path>"
+MultiTenantStore.instance.logger = StdoutLogger
+
+o1 = ObserverClass.new
+o1.logger = StdoutLogger
+
+MultiTenantFileStore.instance.register o1
+
+tenant = MultiTenantFileStore.instance.create_tenant_store
+MultiTenantFileStore.instance.add_to_tenant tenant, "<some_file>", { :original_file => "<some_file>" }

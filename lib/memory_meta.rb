@@ -4,16 +4,16 @@
 # author: Thomas Stätter
 # date: 2012/11/08
 #
-require 'yaml'
-require 'filestore.rb'
-require 'meta_manager.rb'
-require 'log.rb'
+require "../module.rb"
 
 module FileStore
 	#
 	# Class implementing a memory based MetaManager
 	#
 	class MemoryMetaManager < MetaManager
+	  include Logger
+	  include OberservedSubject
+	  
 		# Constant defining the default file path
 		FILE = 'meta.yaml'
 		# Accessor for the file to store data to
@@ -24,23 +24,26 @@ module FileStore
 		# Arguments:
 		# 	persistentFile: The file where the manager class is persisted to
 		#
-		def initialize(persistentFile = '')
+		def initialize(persistentFile = '', logger)
+		  @logger = logger
 			@data = Hash.new
 			@removed = Hash.new
 			@file = (persistentFile.nil? or persistentFile == '')? MemoryMetaManager::FILE : persistentFile
 			
+			self.initialize_obs
+			
 			begin
 				if File.exists?(@file)
-					Logger.instance.logger.info "loading meta yaml from #{@file}"
+					@logger.info "loading meta yaml from #{@file}"
 					@mm = YAML.load_file(@file) if File.exists?(@file)
-					Logger.instance.logger.info "Loaded meta yaml: #{@mm}"
+					@logger.info "Loaded meta yaml: #{@mm}"
 					@data = @mm[:current]
 					@removed = @mm[:removed]
 				else
-					Logger.instance.logger.info "Creating new meta store in #{@file}"
+					@logger.info "Creating new meta store in #{@file}"
 				end
 			rescue Exception => e
-				raise FileStoreException, "Couldn't load meta data from file #{@file}"				
+				raise FileStoreException, "Couldn't load meta data from file #{@file}.\nCause: #{e}"				
 			end
 				
 		end
@@ -60,6 +63,9 @@ module FileStore
 			raise FileStoreException, "Only Strings can be used as keys" if not id.is_a?(String)
 			
 			@data[id] = (@data.key?(id) ? @data[id].merge!(metaData) : @data[id] = metaData)
+			
+			self.inform ObserverAction.new(:type => ObserverAction::TYPE_META_ADD, 
+       :objects => [id, metaData], :msg => "Added/Updated file to meta store")
 		end
 		#
 		# see: MetaManager::remove
@@ -70,6 +76,9 @@ module FileStore
 			
 			@removed[id] = @data[id]
 			@data.delete(id)
+			
+			self.inform ObserverAction.new(:type => ObserverAction::TYPE_META_REMOVE, 
+       :objects => [id], :msg => "Removed file to meta store")
 		end
 		#
 		# see: MetaManager::restore
@@ -80,6 +89,9 @@ module FileStore
 			
 			@data[id] = @removed[id]
 			@removed.delete(id)
+			
+			self.inform ObserverAction.new(:type => ObserverAction::TYPE_META_RESTORE, 
+       :objects => [id], :msg => "Restored file in meta store")
 		end
 		#
 		# see: MetaManager::shutdown
@@ -91,6 +103,9 @@ module FileStore
 				end
 				
 				@data = nil
+				
+				self.inform ObserverAction.new(:type => ObserverAction::TYPE_META_SHUTDOWN, 
+          :msg => "Restored file in meta store")
 			rescue Exception => e
 				raise FileStoreException, "Couldn't serialize meta manager to file #{@file}.\n#{e.message}"
 			end

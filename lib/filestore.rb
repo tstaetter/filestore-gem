@@ -4,15 +4,12 @@
 # author: Thomas Stätter
 # date: 2012/11/07
 #
+require "../module.rb"
 
-require 'meta_manager.rb'
-require 'log.rb'
-require 'etc'
-require 'yaml'
-require 'fileutils'
-require 'uuidtools'
+include FileStore
 
 module FileStore
+  include OberservedSubject
 	#
 	# Base exception class used for errors occurring in this module
 	#
@@ -23,6 +20,9 @@ module FileStore
 	# arbitrary files
 	#
 	class SimpleFileStore
+	  include Logger
+	  include OberservedSubject
+	  
 		# Name of the lock file
 		STORE_LOCK_FILE = ".locked"
 		# Name of the meta file describing the current file store
@@ -45,7 +45,7 @@ module FileStore
 		# 	metaManager: The meta data manager instance to be used by this store
 		# 	rootPath: The path where the file store resides
 		#
-		def initialize(metaManager, rootPath = '.')
+		def initialize(metaManager, rootPath = '.', logger)
 			raise FileStoreException, "Root path already locked" if SimpleFileStore.is_directory_locked?(rootPath)		
 			raise FileStoreException, "FileStore root path #{rootPath} doesn't exist" if not File.directory?(rootPath)
 			raise FileStoreException, "FileStore root path #{rootPath} isn't writable" if not File.writable?(rootPath)
@@ -59,6 +59,9 @@ module FileStore
 			@rollbackPath = File.join(@rootPath, ROLLBACK_ROOT)
 			@metaFile = File.join(@rootPath, META_FILE)
 			@locked = false
+			@logger = logger
+			
+			self.initialize_obs
 			
 			begin
 				# Try to recover existing store
@@ -79,7 +82,7 @@ module FileStore
 		# 	shouldMove: Determines wether to original file should be deleted
 		#
 		# Returns:
-		#	The newly created ID for the file
+		#	  The newly created ID for the file
 		#
 		def add(file, meta = {}, shouldMove = true)
 			raise FileStoreException, "File #{file} not found" if not File.exists?(file)
@@ -91,14 +94,17 @@ module FileStore
 			
 			begin
 				dir = SimpleFileStore.get_daily_directory(@storePath)
-				Logger.instance.logger.info "Adding file #{file} to directory #{dir}"
+				@logger.info "Adding file #{file} to directory #{dir}"
 				id = SimpleFileStore.get_id(self)
-				Logger.instance.logger.info "Using file id #{id}"
+				@logger.info "Using file id #{id}"
 				dstPath = File.join(dir, id)
-				Logger.instance.logger.info "Created destination path #{dstPath}"
+				@logger.info "Created destination path #{dstPath}"
 				
-				shouldMove ? (Logger.instance.logger.info("Moving file"); FileUtils.mv(file, dstPath)) : 
-					(Logger.instance.logger.info("Copying file"); FileUtils.copy_file(file, dstPath))
+				shouldMove ? (@logger.info("Moving file"); FileUtils.mv(file, dstPath)) : 
+					(@logger.info("Copying file"); FileUtils.copy_file(file, dstPath))
+				
+				self.inform ObserverAction.new(:type => ObserverAction::TYPE_STORE_ADD, 
+          :objects => [file, meta], :msg => "Added file to file store")
 			rescue Exception => e
 				raise FileStoreException, "Couldn't add file #{file} to store.", e.backtrace
 			end
@@ -127,6 +133,9 @@ module FileStore
 
 			raise FileStoreException, "No valid meta data found for ID #{id}" if md.nil? or not File.exists?(path)
 			
+			self.inform ObserverAction.new :type => ObserverAction::TYPE_STORE_GET, 
+        :objects => [id], :msg => "Returning file from file store"
+			
 			return { :path => File.new(path), :data => md }
 		end
 		#
@@ -148,6 +157,9 @@ module FileStore
 				dstPath = File.join(dir, id)
 				
 				FileUtils.move(file, dstPath)
+				
+				self.inform ObserverAction.new :type => ObserverAction::TYPE_STORE_REMOVE, 
+          :objects => [id], :msg => "Deleted file from store"
 			rescue Exception => e
 				raise FileStoreException, "Couldn't move file #{file} to deleted store.\n#{e.message}"
 			end
@@ -161,14 +173,18 @@ module FileStore
 		def restore(id)
 			raise FileStoreException, "No file ID given for restore" if id == '' or id.nil?
 			
-			md = @metaManager.restore(id)
-			file = md[:path]
-			
 			begin
+			  md = @metaManager.restore id
+        @logger.debug "Restoring meta data #{md}"
+        file = md[:path]
+        
 				dir = SimpleFileStore.get_daily_directory(@storePath)
 				dstPath = File.join(dir, id)
 				
 				FileUtils.move(file, dstPath)
+				
+				self.inform ObserverAction.new :type => ObserverAction::TYPE_STORE_RESTORE, 
+          :objects => [id], :msg => "Restored file from store"
 			rescue Exception => e
 				raise FileStoreException, "Couldn't restore file #{file} from deleted store.\n#{e.message}"
 				#
@@ -183,6 +199,9 @@ module FileStore
 			@metaManager.shutdown
 			
 			release_lock
+			
+			self.inform ObserverAction.new :type => ObserverAction::TYPE_STORE_SHUTDOWN, 
+        :msg => "File store shutdown"
 		end
 		#
 		# Determines wether this store is locked
@@ -261,7 +280,6 @@ module FileStore
 		# 	store: The file store instance to set up
 		#
 		def self.create_store(store)
-			Logger.instance.logger.info "Trying to create store in #{store.storePath}"
 			# Try to create needed directories
 			begin
 				FileUtils.mkdir [store.storePath, store.deletedPath, store.rollbackPath]
@@ -297,7 +315,6 @@ module FileStore
 		def self.recover_store(store)
 			# trying to recover existing file store
 			begin
-				Logger.instance.logger.info "Trying to recover store from #{store.metaFile}"
 				meta = YAML.load_file(store.metaFile)
 				
 				raise FileStoreException, "Store directory not found" if not File.directory?(meta[:storePath])

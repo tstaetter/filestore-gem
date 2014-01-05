@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class TestFileStore - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>test/tc_filestore.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="FileStoreTest.html">FileStoreTest</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-test_actions_with_observer">#test_actions_with_observer</a>
+    
+    <li><a href="#method-i-test_init_shutdown">#test_init_shutdown</a>
+    
+    <li><a href="#method-i-test_registration_observer">#test_registration_observer</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./FileStore.html">FileStore</a>
+  
+    <li><a href="./FileStore/FileStoreException.html">FileStore::FileStoreException</a>
+  
+    <li><a href="./FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="./FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
+  
+    <li><a href="./FileStore/MetaManager.html">FileStore::MetaManager</a>
+  
+    <li><a href="./FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
+  
+    <li><a href="./FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
+  
+    <li><a href="./FileStore/Observer.html">FileStore::Observer</a>
+  
+    <li><a href="./FileStore/ObserverAction.html">FileStore::ObserverAction</a>
+  
+    <li><a href="./FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="./FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
+  
+    <li><a href="./FileStoreTest.html">FileStoreTest</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./ObserverClass.html">ObserverClass</a>
+  
+    <li><a href="./OtherObserverClass.html">OtherObserverClass</a>
+  
+    <li><a href="./TestFileStore.html">TestFileStore</a>
+  
+    <li><a href="./TestMetaManager.html">TestMetaManager</a>
+  
+    <li><a href="./TestModule.html">TestModule</a>
+  
+    <li><a href="./TestMultiTenantFileStore.html">TestMultiTenantFileStore</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class TestFileStore</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-test_actions_with_observer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_actions_with_observer</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_actions_with_observer-source">
+            <pre><span class="ruby-comment"># File test/tc_filestore.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_actions_with_observer</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;TestFileStorage::test_actions_with_observer&quot;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
+  
+  <span class="ruby-identifier">o1</span> = <span class="ruby-constant">ObserverClass</span>.<span class="ruby-identifier">new</span>    
+  <span class="ruby-identifier">o1</span>.<span class="ruby-identifier">logger</span> = <span class="ruby-constant">StdoutLogger</span>
+  <span class="ruby-identifier">mm</span> = <span class="ruby-constant">MemoryMetaManager</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@basePath</span>, <span class="ruby-string">&quot;meta.yaml&quot;</span>), <span class="ruby-constant">StdoutLogger</span>
+  <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">mm</span>, <span class="ruby-ivar">@basePath</span>, <span class="ruby-constant">StdoutLogger</span>
+  <span class="ruby-identifier">id</span> = <span class="ruby-keyword">nil</span>
+  
+  <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">register</span> <span class="ruby-identifier">o1</span>
+  
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) { 
+    <span class="ruby-identifier">id</span> = <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">add</span> <span class="ruby-ivar">@testFile</span>, { <span class="ruby-value">:original_file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@testFile</span> }, <span class="ruby-keyword">false</span>
+  }
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) { <span class="ruby-identifier">file</span> = <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">id</span> }
+  <span class="ruby-identifier">assert_not_nil</span>(<span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">id</span>))
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) { <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">remove</span> <span class="ruby-identifier">id</span> }
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) { <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">shutdown</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- test_actions_with_observer-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- test_actions_with_observer-method -->
+
+    
+      <div id="method-i-test_init_shutdown" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_init_shutdown</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_init_shutdown-source">
+            <pre><span class="ruby-comment"># File test/tc_filestore.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_init_shutdown</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;TestFileStore::test_init_shutdown&quot;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
+  
+  <span class="ruby-identifier">mm</span> = <span class="ruby-constant">MemoryMetaManager</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@basePath</span>, <span class="ruby-string">&quot;meta.yaml&quot;</span>), <span class="ruby-constant">StdoutLogger</span>
+  <span class="ruby-identifier">sfs</span> = <span class="ruby-keyword">nil</span>
+  
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) {
+    <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">mm</span>, <span class="ruby-ivar">@basePath</span>, <span class="ruby-constant">StdoutLogger</span>
+  }
+  <span class="ruby-identifier">assert_not_nil</span>(<span class="ruby-identifier">sfs</span>)
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) {
+    <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">shutdown</span>
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- test_init_shutdown-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- test_init_shutdown-method -->
+
+    
+      <div id="method-i-test_registration_observer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_registration_observer</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_registration_observer-source">
+            <pre><span class="ruby-comment"># File test/tc_filestore.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_registration_observer</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;TestFileStorage::test_registration_observer&quot;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
+  
+  <span class="ruby-identifier">mm</span> = <span class="ruby-constant">MemoryMetaManager</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@basePath</span>, <span class="ruby-string">&quot;meta.yaml&quot;</span>), <span class="ruby-constant">StdoutLogger</span>
+  <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">mm</span>, <span class="ruby-ivar">@basePath</span>, <span class="ruby-constant">StdoutLogger</span>
+  <span class="ruby-identifier">o1</span> = <span class="ruby-constant">OtherObserverClass</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">o2</span> = <span class="ruby-constant">ObserverClass</span>.<span class="ruby-identifier">new</span>
+  
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) { 
+    <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">register</span> <span class="ruby-identifier">o1</span>
+    <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">register</span> <span class="ruby-identifier">o2</span>
+  }
+  <span class="ruby-identifier">assert_raise</span>(<span class="ruby-constant">FileStoreException</span>) { <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">register</span> <span class="ruby-identifier">o1</span> }
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) { 
+    <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">unregister</span> <span class="ruby-identifier">o1</span>
+    <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">unregister</span> <span class="ruby-identifier">o2</span>
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- test_registration_observer-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- test_registration_observer-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

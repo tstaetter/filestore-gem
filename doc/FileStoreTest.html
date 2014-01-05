@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>module FileStore - RDoc Documentation</title>
+<title>class FileStoreTest - RDoc Documentation</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -20,7 +20,7 @@
 <script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
 
 
-<body id="top" class="module">
+<body id="top" class="class">
 <nav id="metadata">
   <nav id="home-section" class="section">
   <h3 class="section-header">
@@ -47,13 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/filestore.rb
-    <li>lib/log.rb
-    <li>lib/memory_meta.rb
-    <li>lib/meta_manager.rb
-    <li>lib/multitenant_filestore.rb
-    <li>lib/observer.rb
-    <li>module.rb
+    <li>test/classes.rb
   </ul>
 </nav>
 
@@ -62,27 +56,23 @@
 
   <div id="class-metadata">
     
-    
-    <!-- Included Modules -->
-<nav id="includes-section" class="section">
-  <h3 class="section-header">Included Modules</h3>
-
-  <ul class="link-list">
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
   
+  <p class="link">Test::Unit::TestCase
   
-    <li><a class="include" href="FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
-  
-  
-  </ul>
 </nav>
 
+    
     <!-- Method Quickref -->
 <nav id="method-list-section" class="section">
   <h3 class="section-header">Methods</h3>
 
   <ul class="link-list">
     
-    <li><a href="#method-c-load_required">::load_required</a>
+    <li><a href="#method-i-setup">#setup</a>
+    
+    <li><a href="#method-i-teardown">#teardown</a>
     
   </ul>
 </nav>
@@ -141,18 +131,10 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="module">module FileStore</h1>
+  <h1 class="class">class FileStoreTest</h1>
 
   <div id="description" class="description">
     
-<p>log.rb @author Thomas Stätter @date 2012/11/26 @description</p>
-
-<p>meta_manager.rb</p>
-
-<p>author: Thomas Stätter date: 2012/11/08</p>
-
-<p>filestore.rb @author Thomas Stätter @date 2012/11/26 @description</p>
-
   </div><!-- description -->
 
   
@@ -164,37 +146,19 @@
     
 
     
-    <!-- Constants -->
-    <section id="constants-list" class="section">
-      <h3 class="section-header">Constants</h3>
-      <dl>
-      
-        <dt id="LIB_FILES">LIB_FILES
-        
-        <dd class="description">
-        
-      
-        <dt id="VERSION">VERSION
-        
-        <dd class="description">
-        
-      
-      </dl>
-    </section>
-    
 
     
 
     <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-c-load_required" class="method-detail ">
+      <div id="method-i-setup" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">load_required</span><span
+          <span class="method-name">setup</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -202,30 +166,62 @@
 
         <div class="method-description">
           
-          <p>Loads required libs as defined in FileStore::LIB_FILES</p>
+          
           
 
           
-          <div class="method-source-code" id="load_required-source">
-            <pre><span class="ruby-comment"># File module.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">load_required</span>
-  <span class="ruby-identifier">$LOAD_PATH</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">__FILE__</span>))
-  
-  <span class="ruby-constant">LIB_FILES</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> 
-    <span class="ruby-identifier">require</span> <span class="ruby-identifier">l</span>
-  <span class="ruby-keyword">end</span>
+          <div class="method-source-code" id="setup-source">
+            <pre><span class="ruby-comment"># File test/classes.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup</span>
+  <span class="ruby-comment"># create test directory and file</span>
+  <span class="ruby-ivar">@basePath</span> = <span class="ruby-node">&quot;#{Dir.getwd}/store_test&quot;</span>
+  <span class="ruby-ivar">@testFile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@basePath</span>, <span class="ruby-string">&quot;testfile.txt&quot;</span>)
+   
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-ivar">@basePath</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@basePath</span>)
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">touch</span>(<span class="ruby-ivar">@testFile</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@testFile</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- load_required-source -->
+          </div><!-- setup-source -->
           
         </div>
 
         
 
         
-      </div><!-- load_required-method -->
+      </div><!-- setup-method -->
 
     
-    </section><!-- public-class-method-details -->
+      <div id="method-i-teardown" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">teardown</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="teardown-source">
+            <pre><span class="ruby-comment"># File test/classes.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">teardown</span>
+  <span class="ruby-comment"># remove test directory and file</span>
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">remove_dir</span>(<span class="ruby-ivar">@basePath</span>, <span class="ruby-keyword">true</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@basePath</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- teardown-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- teardown-method -->
+
+    
+    </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 

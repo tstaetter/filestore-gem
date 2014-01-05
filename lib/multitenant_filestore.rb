@@ -4,20 +4,15 @@
 # author: Thomas Stätter
 # date: 2012/11/21
 #
-
-require 'filestore.rb'
-require 'memory_meta.rb'
-require 'log.rb'
-require 'uuidtools'
-require 'fileutils'
-require 'yaml'
-require 'singleton'
+require "../module.rb"
 
 module FileStore
 	#
 	# Singleton class implementing a multitenant file store
 	#
 	class MultiTenantFileStore
+	  include Logger
+	  include OberservedSubject
 		# Make this class a singleton class
 		include Singleton
 		# Accessors
@@ -28,6 +23,8 @@ module FileStore
 		def initialize()
 			@rootPath = Dir.getwd
 			@stores = {}
+			
+			self.initialize_obs
 		end
 		#
 		# Sets the root path of the multitenant store. As FileStore::MultiTenantFileStore
@@ -58,10 +55,13 @@ module FileStore
 			begin
 				path = File.join(@rootPath, id)
 				FileUtils.mkdir path if not File.directory?(path)
-				mm = MemoryMetaManager.new(File.join(path, "meta.yaml"))
-				sfs = SimpleFileStore.new(mm, path)
+				mm = MemoryMetaManager.new(File.join(path, "meta.yaml"), self.logger)
+				sfs = SimpleFileStore.new(mm, path, self.logger)
 			
 				@stores[id] = sfs
+				
+				self.inform ObserverAction.new(:type => ObserverAction::TYPE_MSTORE_CREATE, 
+          :msg => "Created new tenant store")
 			rescue Exception => e
 				raise FileStoreException, "Couldn't create multitenant store.\n#{e.message}"
 			end
@@ -110,6 +110,9 @@ module FileStore
 			raise FileStoreException, "Tenant #{tenant} not registered. File #{file} can't be added." if not @stores.key?(tenant)
 			
 			@stores[tenant].add(file, md)
+			
+			self.inform ObserverAction.new(:type => ObserverAction::TYPE_MSTORE_ADD, 
+          :objects => [tenant, file], :msg => "Added file to tenant")
 		end
 		#
 		# Removes a file from the tenant's store
@@ -180,7 +183,7 @@ module FileStore
 						stores[tenant] = sfs
 					end
 				rescue Exception => e
-					Logger.instance.logger.error "Couldn't create store for tenant #{tenant}.\n#{e.message}"
+					@logger.error "Couldn't create store for tenant #{tenant}.\n#{e.message}"
 				end
 			}
 			
