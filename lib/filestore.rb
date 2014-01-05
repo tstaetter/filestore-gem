@@ -9,7 +9,6 @@ require "../module.rb"
 include FileStore
 
 module FileStore
-  include OberservedSubject
 	#
 	# Base exception class used for errors occurring in this module
 	#
