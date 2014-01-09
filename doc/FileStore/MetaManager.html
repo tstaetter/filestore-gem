@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/meta_manager.rb
+    <li>lib/filestore/meta_manager.rb
   </ul>
 </nav>
 
@@ -80,6 +80,8 @@
     
     <li><a href="#method-i-restore">#restore</a>
     
+    <li><a href="#method-i-save">#save</a>
+    
     <li><a href="#method-i-shutdown">#shutdown</a>
     
   </ul>
@@ -96,9 +98,13 @@
   
     <li><a href="../FileStore.html">FileStore</a>
   
+    <li><a href="../FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  
     <li><a href="../FileStore/FileStoreException.html">FileStore::FileStoreException</a>
   
     <li><a href="../FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="../FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
   
     <li><a href="../FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
   
@@ -106,13 +112,17 @@
   
     <li><a href="../FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
   
-    <li><a href="../FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
+    <li><a href="../FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  
+    <li><a href="../FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
   
     <li><a href="../FileStore/Observer.html">FileStore::Observer</a>
   
     <li><a href="../FileStore/ObserverAction.html">FileStore::ObserverAction</a>
   
     <li><a href="../FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="../FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
   
     <li><a href="../FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
   
@@ -187,7 +197,7 @@ metaData: The actual meta data to store</pre>
 
           
           <div class="method-source-code" id="add_or_update-source">
-            <pre><span class="ruby-comment"># File lib/meta_manager.rb, line 48</span>
+            <pre><span class="ruby-comment"># File lib/filestore/meta_manager.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">add_or_update</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">metaData</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- add_or_update-source -->
@@ -224,7 +234,7 @@ metaData: The actual meta data to store</pre>
 
           
           <div class="method-source-code" id="get_data-source">
-            <pre><span class="ruby-comment"># File lib/meta_manager.rb, line 23</span>
+            <pre><span class="ruby-comment"># File lib/filestore/meta_manager.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_data</span>(<span class="ruby-identifier">id</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- get_data-source -->
@@ -257,7 +267,7 @@ metaData: The actual meta data to store</pre>
 
           
           <div class="method-source-code" id="has_id-3F-source">
-            <pre><span class="ruby-comment"># File lib/meta_manager.rb, line 61</span>
+            <pre><span class="ruby-comment"># File lib/filestore/meta_manager.rb, line 65</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">has_id?</span>(<span class="ruby-identifier">id</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- has_id-3F-source -->
@@ -290,7 +300,7 @@ metaData: The actual meta data to store</pre>
 
           
           <div class="method-source-code" id="remove-source">
-            <pre><span class="ruby-comment"># File lib/meta_manager.rb, line 31</span>
+            <pre><span class="ruby-comment"># File lib/filestore/meta_manager.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">remove</span>(<span class="ruby-identifier">id</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- remove-source -->
@@ -323,7 +333,7 @@ metaData: The actual meta data to store</pre>
 
           
           <div class="method-source-code" id="restore-source">
-            <pre><span class="ruby-comment"># File lib/meta_manager.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/filestore/meta_manager.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">restore</span>(<span class="ruby-identifier">id</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- restore-source -->
@@ -334,6 +344,35 @@ metaData: The actual meta data to store</pre>
 
         
       </div><!-- restore-method -->
+
+    
+      <div id="method-i-save" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">save</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Saves the meta data in the current state</p>
+          
+
+          
+          <div class="method-source-code" id="save-source">
+            <pre><span class="ruby-comment"># File lib/filestore/meta_manager.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- save-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save-method -->
 
     
       <div id="method-i-shutdown" class="method-detail ">
@@ -352,7 +391,7 @@ metaData: The actual meta data to store</pre>
 
           
           <div class="method-source-code" id="shutdown-source">
-            <pre><span class="ruby-comment"># File lib/meta_manager.rb, line 53</span>
+            <pre><span class="ruby-comment"># File lib/filestore/meta_manager.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">shutdown</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- shutdown-source -->

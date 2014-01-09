@@ -90,9 +90,13 @@
   
     <li><a href="./FileStore.html">FileStore</a>
   
+    <li><a href="./FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  
     <li><a href="./FileStore/FileStoreException.html">FileStore::FileStoreException</a>
   
     <li><a href="./FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="./FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
   
     <li><a href="./FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
   
@@ -100,13 +104,17 @@
   
     <li><a href="./FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
   
-    <li><a href="./FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
+    <li><a href="./FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  
+    <li><a href="./FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
   
     <li><a href="./FileStore/Observer.html">FileStore::Observer</a>
   
     <li><a href="./FileStore/ObserverAction.html">FileStore::ObserverAction</a>
   
     <li><a href="./FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="./FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
   
     <li><a href="./FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
   
@@ -173,7 +181,7 @@
 
           
           <div class="method-source-code" id="test_actions_with_observer-source">
-            <pre><span class="ruby-comment"># File test/tc_filestore.rb, line 52</span>
+            <pre><span class="ruby-comment"># File test/tc_filestore.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">test_actions_with_observer</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;TestFileStorage::test_actions_with_observer&quot;</span>
@@ -181,14 +189,13 @@
   
   <span class="ruby-identifier">o1</span> = <span class="ruby-constant">ObserverClass</span>.<span class="ruby-identifier">new</span>    
   <span class="ruby-identifier">o1</span>.<span class="ruby-identifier">logger</span> = <span class="ruby-constant">StdoutLogger</span>
-  <span class="ruby-identifier">mm</span> = <span class="ruby-constant">MemoryMetaManager</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@basePath</span>, <span class="ruby-string">&quot;meta.yaml&quot;</span>), <span class="ruby-constant">StdoutLogger</span>
-  <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">mm</span>, <span class="ruby-ivar">@basePath</span>, <span class="ruby-constant">StdoutLogger</span>
+  <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleStoreFactory</span><span class="ruby-operator">::</span><span class="ruby-identifier">create</span> <span class="ruby-ivar">@basePathSimple</span>, <span class="ruby-keyword">true</span>
   <span class="ruby-identifier">id</span> = <span class="ruby-keyword">nil</span>
   
   <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">register</span> <span class="ruby-identifier">o1</span>
   
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) { 
-    <span class="ruby-identifier">id</span> = <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">add</span> <span class="ruby-ivar">@testFile</span>, { <span class="ruby-value">:original_file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@testFile</span> }, <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">id</span> = <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">add</span> <span class="ruby-ivar">@testFileSimple</span>, { <span class="ruby-value">:original_file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@testFileSimple</span> }, <span class="ruby-keyword">false</span>
   }
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) { <span class="ruby-identifier">file</span> = <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">get</span> <span class="ruby-identifier">id</span> }
   <span class="ruby-identifier">assert_not_nil</span>(<span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">id</span>))
@@ -221,20 +228,18 @@
 
           
           <div class="method-source-code" id="test_init_shutdown-source">
-            <pre><span class="ruby-comment"># File test/tc_filestore.rb, line 14</span>
+            <pre><span class="ruby-comment"># File test/tc_filestore.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">test_init_shutdown</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;TestFileStore::test_init_shutdown&quot;</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
   
-  <span class="ruby-identifier">mm</span> = <span class="ruby-constant">MemoryMetaManager</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@basePath</span>, <span class="ruby-string">&quot;meta.yaml&quot;</span>), <span class="ruby-constant">StdoutLogger</span>
-  <span class="ruby-identifier">sfs</span> = <span class="ruby-keyword">nil</span>
-  
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) {
-    <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">mm</span>, <span class="ruby-ivar">@basePath</span>, <span class="ruby-constant">StdoutLogger</span>
+    <span class="ruby-constant">SimpleStoreFactory</span><span class="ruby-operator">::</span><span class="ruby-identifier">create</span> <span class="ruby-ivar">@basePathSimple</span>
   }
-  <span class="ruby-identifier">assert_not_nil</span>(<span class="ruby-identifier">sfs</span>)
+  <span class="ruby-identifier">assert_not_nil</span>(<span class="ruby-constant">SimpleStoreFactory</span><span class="ruby-operator">::</span><span class="ruby-identifier">create</span> <span class="ruby-ivar">@basePathSimple</span>)
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">FileStoreException</span>) {
+    <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleStoreFactory</span><span class="ruby-operator">::</span><span class="ruby-identifier">create</span> <span class="ruby-ivar">@basePathSimple</span>
     <span class="ruby-identifier">sfs</span>.<span class="ruby-identifier">shutdown</span>
   }
 <span class="ruby-keyword">end</span></pre>
@@ -264,14 +269,13 @@
 
           
           <div class="method-source-code" id="test_registration_observer-source">
-            <pre><span class="ruby-comment"># File test/tc_filestore.rb, line 31</span>
+            <pre><span class="ruby-comment"># File test/tc_filestore.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">test_registration_observer</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;TestFileStorage::test_registration_observer&quot;</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
   
-  <span class="ruby-identifier">mm</span> = <span class="ruby-constant">MemoryMetaManager</span>.<span class="ruby-identifier">new</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@basePath</span>, <span class="ruby-string">&quot;meta.yaml&quot;</span>), <span class="ruby-constant">StdoutLogger</span>
-  <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">mm</span>, <span class="ruby-ivar">@basePath</span>, <span class="ruby-constant">StdoutLogger</span>
+  <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleStoreFactory</span><span class="ruby-operator">::</span><span class="ruby-identifier">create</span> <span class="ruby-ivar">@basePathSimple</span>, <span class="ruby-keyword">true</span>
   <span class="ruby-identifier">o1</span> = <span class="ruby-constant">OtherObserverClass</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">o2</span> = <span class="ruby-constant">ObserverClass</span>.<span class="ruby-identifier">new</span>
   

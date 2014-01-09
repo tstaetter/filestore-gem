@@ -12,16 +12,22 @@ class FileStoreTest < Test::Unit::TestCase
   
   def setup
     # create test directory and file
-    @basePath = "#{Dir.getwd}/store_test"
-    @testFile = File.join(@basePath, "testfile.txt")
+    @uid = Etc.getlogin
+    @basePathSimple = "#{Dir.getwd}/simple_store_test"
+    @basePathMulti = "#{Dir.getwd}/multi_store_test"
+    @testFileSimple = File.join(@basePathSimple, "testfile.txt")
+    @testFileMulti = File.join(@basePathMulti, "testfile.txt")
      
-    FileUtils.mkdir(@basePath) if not File.exists?(@basePath)
-    FileUtils.touch(@testFile) if not File.exists?(@testFile)
+    FileUtils.mkdir(@basePathSimple) if not File.exists?(@basePathSimple)
+    FileUtils.mkdir(@basePathMulti) if not File.exists?(@basePathMulti)
+    FileUtils.touch(@testFileSimple)
+    FileUtils.touch(@testFileMulti)
   end
   
   def teardown
-    # remove test directory and file
-    FileUtils.remove_dir(@basePath, true) if File.exists?(@basePath)
+    # remove test directories and file
+    FileUtils.remove_dir(@basePathSimple, true) if File.exists?(@basePathSimple)
+    FileUtils.remove_dir(@basePathMulti, true) if File.exists?(@basePathMulti)
   end
   
 end

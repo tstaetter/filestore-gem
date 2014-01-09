@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module FileStore::ObservedSubject - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/filestore/observer.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-included">::included</a>
+    
+    <li><a href="#method-i-inform">#inform</a>
+    
+    <li><a href="#method-i-initialize_obs">#initialize_obs</a>
+    
+    <li><a href="#method-i-register">#register</a>
+    
+    <li><a href="#method-i-unregister">#unregister</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../FileStore.html">FileStore</a>
+  
+    <li><a href="../FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  
+    <li><a href="../FileStore/FileStoreException.html">FileStore::FileStoreException</a>
+  
+    <li><a href="../FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="../FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
+  
+    <li><a href="../FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
+  
+    <li><a href="../FileStore/MetaManager.html">FileStore::MetaManager</a>
+  
+    <li><a href="../FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
+  
+    <li><a href="../FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  
+    <li><a href="../FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
+  
+    <li><a href="../FileStore/Observer.html">FileStore::Observer</a>
+  
+    <li><a href="../FileStore/ObserverAction.html">FileStore::ObserverAction</a>
+  
+    <li><a href="../FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="../FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
+  
+    <li><a href="../FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
+  
+    <li><a href="../FileStoreTest.html">FileStoreTest</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../ObserverClass.html">ObserverClass</a>
+  
+    <li><a href="../OtherObserverClass.html">OtherObserverClass</a>
+  
+    <li><a href="../TestFileStore.html">TestFileStore</a>
+  
+    <li><a href="../TestMetaManager.html">TestMetaManager</a>
+  
+    <li><a href="../TestModule.html">TestModule</a>
+  
+    <li><a href="../TestMultiTenantFileStore.html">TestMultiTenantFileStore</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module FileStore::ObservedSubject</h1>
+
+  <div id="description" class="description">
+    
+<p>Module <a href="ObservedSubject.html">FileStore::ObservedSubject</a> can be
+mixed in to implement an  observed object.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-observers" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">observers</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Reader for collection of observers</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-included" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">included</span><span
+            class="method-args">(klass)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Module hook executed after the inclusion. Currently nothing happens here</p>
+          
+
+          
+          <div class="method-source-code" id="included-source">
+            <pre><span class="ruby-comment"># File lib/filestore/observer.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">klass</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- included-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- included-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-inform" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">inform</span><span
+            class="method-args">(msg)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Informs registered observers about an action</p>
+
+<p>Arguments:</p>
+
+<pre>msg: Some information sent to all registered observers</pre>
+          
+
+          
+          <div class="method-source-code" id="inform-source">
+            <pre><span class="ruby-comment"># File lib/filestore/observer.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">inform</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-ivar">@observers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">o</span>.<span class="ruby-identifier">notify</span> <span class="ruby-identifier">msg</span>, <span class="ruby-keyword">self</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- inform-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- inform-method -->
+
+    
+      <div id="method-i-initialize_obs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">initialize_obs</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Initializes needed attributes for implementing observer. Should be called
+in any constructor including this module</p>
+          
+
+          
+          <div class="method-source-code" id="initialize_obs-source">
+            <pre><span class="ruby-comment"># File lib/filestore/observer.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize_obs</span>
+  <span class="ruby-ivar">@observers</span> = []
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-string">&quot;Initialized ObservedStore, added observers array&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- initialize_obs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- initialize_obs-method -->
+
+    
+      <div id="method-i-register" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">register</span><span
+            class="method-args">(obj)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Registers an concrete observer</p>
+
+<p>Arguments:</p>
+
+<pre>obj: The object added as an observer. Must be an instance of
+    FileStore::Observer</pre>
+          
+
+          
+          <div class="method-source-code" id="register-source">
+            <pre><span class="ruby-comment"># File lib/filestore/observer.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">register</span>(<span class="ruby-identifier">obj</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Observer</span>) <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@observers</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">obj</span>) <span class="ruby-keyword">then</span>
+    <span class="ruby-ivar">@observers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">obj</span>
+    <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Added #{obj} to observers&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;Only instances of FileStore::Observer can be registered&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- register-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- register-method -->
+
+    
+      <div id="method-i-unregister" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unregister</span><span
+            class="method-args">(obj)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Removes a concrete observer</p>
+
+<p>Arguments:</p>
+
+<pre>obj: The observer to be removed. Obviously, it needs to be
+    registered before-hand</pre>
+          
+
+          
+          <div class="method-source-code" id="unregister-source">
+            <pre><span class="ruby-comment"># File lib/filestore/observer.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unregister</span>(<span class="ruby-identifier">obj</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@observers</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">obj</span>) <span class="ruby-keyword">then</span> 
+    <span class="ruby-ivar">@observers</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-ivar">@observers</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">obj</span>))
+    <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Removed observing object #{obj} from the list&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Object #{obj} isn't a registered observer&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- unregister-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- unregister-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

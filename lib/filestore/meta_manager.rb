@@ -47,6 +47,11 @@ module FileStore
 		def add_or_update(id, metaData)
 		end
 		#
+    # Saves the meta data in the current state
+    #
+		def save
+		end
+		#
 		# Shuts down the manager class and clears all used resources
 		#
 		def shutdown

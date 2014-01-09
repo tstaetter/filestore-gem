@@ -30,10 +30,16 @@
     <a href="FileStore.html">FileStore</a>
   </li>
     <li class="class">
+    <a href="FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  </li>
+    <li class="class">
     <a href="FileStore/FileStoreException.html">FileStore::FileStoreException</a>
   </li>
     <li class="module">
     <a href="FileStore/Logger.html">FileStore::Logger</a>
+  </li>
+    <li class="class">
+    <a href="FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
   </li>
     <li class="class">
     <a href="FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
@@ -44,8 +50,11 @@
     <li class="class">
     <a href="FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
   </li>
+    <li class="class">
+    <a href="FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  </li>
     <li class="module">
-    <a href="FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
+    <a href="FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
   </li>
     <li class="module">
     <a href="FileStore/Observer.html">FileStore::Observer</a>
@@ -55,6 +64,9 @@
   </li>
     <li class="class">
     <a href="FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  </li>
+    <li class="class">
+    <a href="FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
   </li>
     <li class="class">
     <a href="FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
@@ -89,39 +101,51 @@
 <h2 id="methods">Methods</h2>
 <ul>
   
+    <li class="method"><a href="FileStore/BaseFactory.html#method-c-create">::create &mdash; FileStore::BaseFactory</a>
+  
+    <li class="method"><a href="FileStore/MemoryMetaFactory.html#method-c-create">::create &mdash; FileStore::MemoryMetaFactory</a>
+  
+    <li class="method"><a href="FileStore/SimpleStoreFactory.html#method-c-create">::create &mdash; FileStore::SimpleStoreFactory</a>
+  
+    <li class="method"><a href="FileStore/MultiTenantStoreFactory.html#method-c-create">::create &mdash; FileStore::MultiTenantStoreFactory</a>
+  
+    <li class="method"><a href="FileStore/SimpleStoreFactory.html#method-c-create_store">::create_store &mdash; FileStore::SimpleStoreFactory</a>
+  
     <li class="method"><a href="FileStore/StdoutLogger.html#method-c-debug">::debug &mdash; FileStore::StdoutLogger</a>
   
     <li class="method"><a href="FileStore/StdoutLogger.html#method-c-error">::error &mdash; FileStore::StdoutLogger</a>
   
-    <li class="method"><a href="FileStore/OberservedSubject.html#method-c-included">::included &mdash; FileStore::OberservedSubject</a>
-  
     <li class="method"><a href="FileStore/Observer.html#method-c-included">::included &mdash; FileStore::Observer</a>
+  
+    <li class="method"><a href="FileStore/ObservedSubject.html#method-c-included">::included &mdash; FileStore::ObservedSubject</a>
   
     <li class="method"><a href="FileStore/StdoutLogger.html#method-c-info">::info &mdash; FileStore::StdoutLogger</a>
   
-    <li class="method"><a href="FileStore.html#method-c-load_required">::load_required &mdash; FileStore</a>
-  
     <li class="method"><a href="FileStore/StdoutLogger.html#method-c-log">::log &mdash; FileStore::StdoutLogger</a>
   
-    <li class="method"><a href="FileStore/SimpleFileStore.html#method-c-new">::new &mdash; FileStore::SimpleFileStore</a>
-  
-    <li class="method"><a href="OtherObserverClass.html#method-c-new">::new &mdash; OtherObserverClass</a>
-  
-    <li class="method"><a href="FileStore/ObserverAction.html#method-c-new">::new &mdash; FileStore::ObserverAction</a>
-  
-    <li class="method"><a href="ObserverClass.html#method-c-new">::new &mdash; ObserverClass</a>
+    <li class="method"><a href="FileStore/MultiTenantFileStore.html#method-c-new">::new &mdash; FileStore::MultiTenantFileStore</a>
   
     <li class="method"><a href="FileStore/MemoryMetaManager.html#method-c-new">::new &mdash; FileStore::MemoryMetaManager</a>
   
-    <li class="method"><a href="FileStore/MultiTenantFileStore.html#method-c-new">::new &mdash; FileStore::MultiTenantFileStore</a>
+    <li class="method"><a href="FileStore/SimpleFileStore.html#method-c-new">::new &mdash; FileStore::SimpleFileStore</a>
+  
+    <li class="method"><a href="FileStore/ObserverAction.html#method-c-new">::new &mdash; FileStore::ObserverAction</a>
+  
+    <li class="method"><a href="OtherObserverClass.html#method-c-new">::new &mdash; OtherObserverClass</a>
+  
+    <li class="method"><a href="ObserverClass.html#method-c-new">::new &mdash; ObserverClass</a>
+  
+    <li class="method"><a href="FileStore/SimpleStoreFactory.html#method-c-recover_store">::recover_store &mdash; FileStore::SimpleStoreFactory</a>
+  
+    <li class="method"><a href="FileStore/MultiTenantStoreFactory.html#method-c-recover_tenant_stores">::recover_tenant_stores &mdash; FileStore::MultiTenantStoreFactory</a>
   
     <li class="method"><a href="FileStore/StdoutLogger.html#method-c-warn">::warn &mdash; FileStore::StdoutLogger</a>
   
     <li class="method"><a href="FileStore/SimpleFileStore.html#method-i-add">#add &mdash; FileStore::SimpleFileStore</a>
   
-    <li class="method"><a href="FileStore/MemoryMetaManager.html#method-i-add_or_update">#add_or_update &mdash; FileStore::MemoryMetaManager</a>
-  
     <li class="method"><a href="FileStore/MetaManager.html#method-i-add_or_update">#add_or_update &mdash; FileStore::MetaManager</a>
+  
+    <li class="method"><a href="FileStore/MemoryMetaManager.html#method-i-add_or_update">#add_or_update &mdash; FileStore::MemoryMetaManager</a>
   
     <li class="method"><a href="FileStore/MultiTenantFileStore.html#method-i-add_to_tenant">#add_to_tenant &mdash; FileStore::MultiTenantFileStore</a>
   
@@ -129,51 +153,51 @@
   
     <li class="method"><a href="FileStore/SimpleFileStore.html#method-i-get">#get &mdash; FileStore::SimpleFileStore</a>
   
-    <li class="method"><a href="FileStore/MetaManager.html#method-i-get_data">#get_data &mdash; FileStore::MetaManager</a>
-  
     <li class="method"><a href="FileStore/MemoryMetaManager.html#method-i-get_data">#get_data &mdash; FileStore::MemoryMetaManager</a>
+  
+    <li class="method"><a href="FileStore/MetaManager.html#method-i-get_data">#get_data &mdash; FileStore::MetaManager</a>
   
     <li class="method"><a href="FileStore/MultiTenantFileStore.html#method-i-get_from_tenant">#get_from_tenant &mdash; FileStore::MultiTenantFileStore</a>
   
     <li class="method"><a href="FileStore/MultiTenantFileStore.html#method-i-get_tenant_store">#get_tenant_store &mdash; FileStore::MultiTenantFileStore</a>
   
-    <li class="method"><a href="FileStore/MetaManager.html#method-i-has_id-3F">#has_id? &mdash; FileStore::MetaManager</a>
-  
     <li class="method"><a href="FileStore/MemoryMetaManager.html#method-i-has_id-3F">#has_id? &mdash; FileStore::MemoryMetaManager</a>
+  
+    <li class="method"><a href="FileStore/MetaManager.html#method-i-has_id-3F">#has_id? &mdash; FileStore::MetaManager</a>
   
     <li class="method"><a href="FileStore/MultiTenantFileStore.html#method-i-has_tenant-3F">#has_tenant? &mdash; FileStore::MultiTenantFileStore</a>
   
-    <li class="method"><a href="FileStore/OberservedSubject.html#method-i-inform">#inform &mdash; FileStore::OberservedSubject</a>
+    <li class="method"><a href="FileStore/ObservedSubject.html#method-i-inform">#inform &mdash; FileStore::ObservedSubject</a>
   
-    <li class="method"><a href="FileStore/OberservedSubject.html#method-i-initialize_obs">#initialize_obs &mdash; FileStore::OberservedSubject</a>
-  
-    <li class="method"><a href="FileStore/SimpleFileStore.html#method-i-locked-3F">#locked? &mdash; FileStore::SimpleFileStore</a>
-  
-    <li class="method"><a href="ObserverClass.html#method-i-notify">#notify &mdash; ObserverClass</a>
+    <li class="method"><a href="FileStore/ObservedSubject.html#method-i-initialize_obs">#initialize_obs &mdash; FileStore::ObservedSubject</a>
   
     <li class="method"><a href="OtherObserverClass.html#method-i-notify">#notify &mdash; OtherObserverClass</a>
   
     <li class="method"><a href="FileStore/Observer.html#method-i-notify">#notify &mdash; FileStore::Observer</a>
   
-    <li class="method"><a href="FileStore/OberservedSubject.html#method-i-register">#register &mdash; FileStore::OberservedSubject</a>
+    <li class="method"><a href="ObserverClass.html#method-i-notify">#notify &mdash; ObserverClass</a>
+  
+    <li class="method"><a href="FileStore/ObservedSubject.html#method-i-register">#register &mdash; FileStore::ObservedSubject</a>
+  
+    <li class="method"><a href="FileStore/MetaManager.html#method-i-remove">#remove &mdash; FileStore::MetaManager</a>
   
     <li class="method"><a href="FileStore/MemoryMetaManager.html#method-i-remove">#remove &mdash; FileStore::MemoryMetaManager</a>
   
     <li class="method"><a href="FileStore/SimpleFileStore.html#method-i-remove">#remove &mdash; FileStore::SimpleFileStore</a>
   
-    <li class="method"><a href="FileStore/MetaManager.html#method-i-remove">#remove &mdash; FileStore::MetaManager</a>
-  
     <li class="method"><a href="FileStore/MultiTenantFileStore.html#method-i-remove_from_tenant">#remove_from_tenant &mdash; FileStore::MultiTenantFileStore</a>
   
     <li class="method"><a href="FileStore/MultiTenantFileStore.html#method-i-remove_tenant_store">#remove_tenant_store &mdash; FileStore::MultiTenantFileStore</a>
+  
+    <li class="method"><a href="FileStore/MetaManager.html#method-i-restore">#restore &mdash; FileStore::MetaManager</a>
   
     <li class="method"><a href="FileStore/MemoryMetaManager.html#method-i-restore">#restore &mdash; FileStore::MemoryMetaManager</a>
   
     <li class="method"><a href="FileStore/SimpleFileStore.html#method-i-restore">#restore &mdash; FileStore::SimpleFileStore</a>
   
-    <li class="method"><a href="FileStore/MetaManager.html#method-i-restore">#restore &mdash; FileStore::MetaManager</a>
+    <li class="method"><a href="FileStore/MemoryMetaManager.html#method-i-save">#save &mdash; FileStore::MemoryMetaManager</a>
   
-    <li class="method"><a href="FileStore/MultiTenantFileStore.html#method-i-set_root_path">#set_root_path &mdash; FileStore::MultiTenantFileStore</a>
+    <li class="method"><a href="FileStore/MetaManager.html#method-i-save">#save &mdash; FileStore::MetaManager</a>
   
     <li class="method"><a href="FileStoreTest.html#method-i-setup">#setup &mdash; FileStoreTest</a>
   
@@ -181,33 +205,35 @@
   
     <li class="method"><a href="FileStore/MetaManager.html#method-i-shutdown">#shutdown &mdash; FileStore::MetaManager</a>
   
-    <li class="method"><a href="FileStore/MemoryMetaManager.html#method-i-shutdown">#shutdown &mdash; FileStore::MemoryMetaManager</a>
-  
     <li class="method"><a href="FileStore/MultiTenantFileStore.html#method-i-shutdown">#shutdown &mdash; FileStore::MultiTenantFileStore</a>
   
+    <li class="method"><a href="FileStore/MemoryMetaManager.html#method-i-shutdown">#shutdown &mdash; FileStore::MemoryMetaManager</a>
+  
     <li class="method"><a href="FileStoreTest.html#method-i-teardown">#teardown &mdash; FileStoreTest</a>
+  
+    <li class="method"><a href="TestMultiTenantFileStore.html#method-i-test_actions_with_observer">#test_actions_with_observer &mdash; TestMultiTenantFileStore</a>
   
     <li class="method"><a href="TestFileStore.html#method-i-test_actions_with_observer">#test_actions_with_observer &mdash; TestFileStore</a>
   
     <li class="method"><a href="TestMetaManager.html#method-i-test_actions_with_observer">#test_actions_with_observer &mdash; TestMetaManager</a>
   
-    <li class="method"><a href="TestMultiTenantFileStore.html#method-i-test_actions_with_observer">#test_actions_with_observer &mdash; TestMultiTenantFileStore</a>
-  
     <li class="method"><a href="TestModule.html#method-i-test_inclusion">#test_inclusion &mdash; TestModule</a>
   
     <li class="method"><a href="TestMetaManager.html#method-i-test_init_shutdown">#test_init_shutdown &mdash; TestMetaManager</a>
   
+    <li class="method"><a href="TestMultiTenantFileStore.html#method-i-test_init_shutdown">#test_init_shutdown &mdash; TestMultiTenantFileStore</a>
+  
     <li class="method"><a href="TestFileStore.html#method-i-test_init_shutdown">#test_init_shutdown &mdash; TestFileStore</a>
   
-    <li class="method"><a href="TestMetaManager.html#method-i-test_registration_observer">#test_registration_observer &mdash; TestMetaManager</a>
+    <li class="method"><a href="TestMultiTenantFileStore.html#method-i-test_observer_registration">#test_observer_registration &mdash; TestMultiTenantFileStore</a>
   
     <li class="method"><a href="TestFileStore.html#method-i-test_registration_observer">#test_registration_observer &mdash; TestFileStore</a>
   
-    <li class="method"><a href="TestMultiTenantFileStore.html#method-i-test_registration_observer">#test_registration_observer &mdash; TestMultiTenantFileStore</a>
+    <li class="method"><a href="TestMetaManager.html#method-i-test_registration_observer">#test_registration_observer &mdash; TestMetaManager</a>
   
     <li class="method"><a href="FileStore/ObserverAction.html#method-i-to_s">#to_s &mdash; FileStore::ObserverAction</a>
   
-    <li class="method"><a href="FileStore/OberservedSubject.html#method-i-unregister">#unregister &mdash; FileStore::OberservedSubject</a>
+    <li class="method"><a href="FileStore/ObservedSubject.html#method-i-unregister">#unregister &mdash; FileStore::ObservedSubject</a>
   
 </ul>
 

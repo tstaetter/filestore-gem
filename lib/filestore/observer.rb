@@ -50,10 +50,10 @@ module FileStore
     end
   end
   #
-  # Module FileStore::OberservedSubject can be mixed in to implement an 
+  # Module FileStore::ObservedSubject can be mixed in to implement an 
   # observed object. 
   #
-  module OberservedSubject
+  module ObservedSubject
     #
     # Reader for collection of observers
     #
@@ -82,7 +82,7 @@ module FileStore
     def register(obj)
       if obj.is_a?(Observer) and not obj.nil? and not @observers.include?(obj) then
         @observers << obj
-        self.logger.debug "Added #{obj} to observers" if not self.logger.nil?
+        @logger.debug "Added #{obj} to observers" if not self.logger.nil?
       else
         raise FileStoreException, "Only instances of FileStore::Observer can be registered"
       end
@@ -97,7 +97,7 @@ module FileStore
     def unregister(obj)
       if @observers.include?(obj) then 
         @observers.delete_at(@observers.index(obj))
-        self.logger.debug "Removed observing object #{obj} from the list" if not self.logger.nil?
+        @logger.debug "Removed observing object #{obj} from the list" if not self.logger.nil?
       else
         raise FileStoreException, "Object #{obj} isn't a registered observer"
       end

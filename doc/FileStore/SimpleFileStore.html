@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/filestore.rb
+    <li>lib/filestore/simple_store.rb
   </ul>
 </nav>
 
@@ -73,10 +73,6 @@
     <li><a class="include" href="Logger.html">FileStore::Logger</a>
   
   
-  
-    <li><a class="include" href="OberservedSubject.html">FileStore::OberservedSubject</a>
-  
-  
   </ul>
 </nav>
 
@@ -91,8 +87,6 @@
     <li><a href="#method-i-add">#add</a>
     
     <li><a href="#method-i-get">#get</a>
-    
-    <li><a href="#method-i-locked-3F">#locked?</a>
     
     <li><a href="#method-i-remove">#remove</a>
     
@@ -114,9 +108,13 @@
   
     <li><a href="../FileStore.html">FileStore</a>
   
+    <li><a href="../FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  
     <li><a href="../FileStore/FileStoreException.html">FileStore::FileStoreException</a>
   
     <li><a href="../FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="../FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
   
     <li><a href="../FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
   
@@ -124,13 +122,17 @@
   
     <li><a href="../FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
   
-    <li><a href="../FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
+    <li><a href="../FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  
+    <li><a href="../FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
   
     <li><a href="../FileStore/Observer.html">FileStore::Observer</a>
   
     <li><a href="../FileStore/ObserverAction.html">FileStore::ObserverAction</a>
   
     <li><a href="../FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="../FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
   
     <li><a href="../FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
   
@@ -196,11 +198,6 @@ managing  arbitrary files</p>
 rollback action</p>
         
       
-        <dt id="STORE_LOCK_FILE">STORE_LOCK_FILE
-        
-        <dd class="description"><p>Name of the lock file</p>
-        
-      
         <dt id="STORE_ROOT">STORE_ROOT
         
         <dd class="description"><p>The base name of the file store directory</p>
@@ -216,10 +213,36 @@ rollback action</p>
       <h3 class="section-header">Attributes</h3>
 
       
-      <div id="attribute-i-deletedPath" class="method-detail">
+      <div id="attribute-i-deleted_path" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">deletedPath</span><span
+          <span class="method-name">deleted_path</span><span
             class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-meta_file" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">meta_file</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-meta_manager" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">meta_manager</span><span
+            class="attribute-access-type">[RW]</span>
         </div>
 
         <div class="method-description">
@@ -229,67 +252,41 @@ rollback action</p>
         </div>
       </div>
       
-      <div id="attribute-i-metaFile" class="method-detail">
+      <div id="attribute-i-rollback_path" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">metaFile</span><span
+          <span class="method-name">rollback_path</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
         <div class="method-description">
         
-        <p>Accessors for important properties</p>
+        <p>Rollback path will be used in future versions</p>
         
         </div>
       </div>
       
-      <div id="attribute-i-metaManager" class="method-detail">
+      <div id="attribute-i-root_path" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">metaManager</span><span
+          <span class="method-name">root_path</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
         <div class="method-description">
         
-        <p>Accessors for important properties</p>
+        
         
         </div>
       </div>
       
-      <div id="attribute-i-rollbackPath" class="method-detail">
+      <div id="attribute-i-store_path" class="method-detail">
         <div class="method-heading attribute-method-heading">
-          <span class="method-name">rollbackPath</span><span
+          <span class="method-name">store_path</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
         <div class="method-description">
         
-        <p>Accessors for important properties</p>
         
-        </div>
-      </div>
-      
-      <div id="attribute-i-rootPath" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">rootPath</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>Accessors for important properties</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-storePath" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">storePath</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>Accessors for important properties</p>
         
         </div>
       </div>
@@ -307,7 +304,7 @@ rollback action</p>
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(metaManager, rootPath = '.', logger)</span>
+            class="method-args">(root_path, logger = StdoutLogger)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -319,41 +316,23 @@ href="SimpleFileStore.html">SimpleFileStore</a></p>
 
 <p>Arguments:</p>
 
-<pre>metaManager: The meta data manager instance to be used by this store
-rootPath: The path where the file store resides</pre>
+<pre>  root_path: The path where the file store resides
+logger: The logging facility</pre>
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/filestore.rb, line 48</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">metaManager</span>, <span class="ruby-identifier">rootPath</span> = <span class="ruby-string">'.'</span>, <span class="ruby-identifier">logger</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;Root path already locked&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">is_directory_locked?</span>(<span class="ruby-identifier">rootPath</span>)               
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;FileStore root path #{rootPath} doesn't exist&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">rootPath</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;FileStore root path #{rootPath} isn't writable&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">writable?</span>(<span class="ruby-identifier">rootPath</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;No meta data manager given&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">metaManager</span>.<span class="ruby-identifier">nil?</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;Meta data manager must be of type FileStore::MetaManager&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">metaManager</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">MetaManager</span>)
-        
-        <span class="ruby-ivar">@metaManager</span> = <span class="ruby-identifier">metaManager</span>
-        <span class="ruby-ivar">@rootPath</span> = <span class="ruby-identifier">rootPath</span>
-        <span class="ruby-ivar">@storePath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@rootPath</span>, <span class="ruby-constant">STORE_ROOT</span>)
-        <span class="ruby-ivar">@deletedPath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@rootPath</span>, <span class="ruby-constant">DELETED_ROOT</span>)
-        <span class="ruby-ivar">@rollbackPath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@rootPath</span>, <span class="ruby-constant">ROLLBACK_ROOT</span>)
-        <span class="ruby-ivar">@metaFile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@rootPath</span>, <span class="ruby-constant">META_FILE</span>)
-        <span class="ruby-ivar">@locked</span> = <span class="ruby-keyword">false</span>
-        <span class="ruby-ivar">@logger</span> = <span class="ruby-identifier">logger</span>
-        
-        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">initialize_obs</span>
-        
-        <span class="ruby-keyword">begin</span>
-                <span class="ruby-comment"># Try to recover existing store</span>
-                <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">recover_store</span>(<span class="ruby-keyword">self</span>)
-        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">FileStoreException</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-                <span class="ruby-comment"># Recovery failed, trying to create the store</span>
-                <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">create_store</span>(<span class="ruby-keyword">self</span>)
-        <span class="ruby-keyword">end</span>
-        
-        <span class="ruby-identifier">lock</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre><span class="ruby-comment"># File lib/filestore/simple_store.rb, line 40</span>
+          <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">root_path</span>, <span class="ruby-identifier">logger</span> = <span class="ruby-constant">StdoutLogger</span>)
+                  <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;FileStore root path #{root_path} doesn't exist&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">root_path</span>)
+                  <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;FileStore root path #{root_path} isn't writable&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">writable?</span>(<span class="ruby-identifier">root_path</span>)
+                  
+                  <span class="ruby-ivar">@root_path</span> = <span class="ruby-identifier">root_path</span>
+<span class="ruby-ivar">@store_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@root_path</span>, <span class="ruby-constant">STORE_ROOT</span>)
+<span class="ruby-ivar">@deleted_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@root_path</span>, <span class="ruby-constant">DELETED_ROOT</span>)
+<span class="ruby-ivar">@rollback_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@root_path</span>, <span class="ruby-constant">ROLLBACK_ROOT</span>)
+<span class="ruby-ivar">@meta_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@root_path</span>, <span class="ruby-constant">SimpleFileStore</span><span class="ruby-operator">::</span><span class="ruby-constant">META_FILE</span>)
+          <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
         </div>
@@ -396,7 +375,7 @@ shouldMove: Determines wether to original file should be deleted</pre>
 
           
           <div class="method-source-code" id="add-source">
-            <pre><span class="ruby-comment"># File lib/filestore.rb, line 87</span>
+            <pre><span class="ruby-comment"># File lib/filestore/simple_store.rb, line 61</span>
       <span class="ruby-keyword">def</span> <span class="ruby-identifier">add</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">meta</span> = {}, <span class="ruby-identifier">shouldMove</span> = <span class="ruby-keyword">true</span>)
               <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;File #{file} not found&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">file</span>)
               <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;File #{file} isn't readable&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file</span>)
@@ -406,7 +385,7 @@ shouldMove: Determines wether to original file should be deleted</pre>
               <span class="ruby-identifier">id</span> = <span class="ruby-string">&quot;&quot;</span>
               
               <span class="ruby-keyword">begin</span>
-                      <span class="ruby-identifier">dir</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_daily_directory</span>(<span class="ruby-ivar">@storePath</span>)
+                      <span class="ruby-identifier">dir</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_daily_directory</span>(<span class="ruby-ivar">@store_path</span>)
                       <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Adding file #{file} to directory #{dir}&quot;</span>
                       <span class="ruby-identifier">id</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_id</span>(<span class="ruby-keyword">self</span>)
                       <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Using file id #{id}&quot;</span>
@@ -416,14 +395,14 @@ shouldMove: Determines wether to original file should be deleted</pre>
                       <span class="ruby-identifier">shouldMove</span> <span class="ruby-operator">?</span> (<span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Moving file&quot;</span>); <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mv</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">dstPath</span>)) <span class="ruby-operator">:</span> 
                               (<span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Copying file&quot;</span>); <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">copy_file</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">dstPath</span>))
                       
-                      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_STORE_ADD</span>, 
-<span class="ruby-value">:objects</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">file</span>, <span class="ruby-identifier">meta</span>], <span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Added file to file store&quot;</span>)
+                      <span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_STORE_ADD</span>, 
+<span class="ruby-value">:objects</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">file</span>, <span class="ruby-identifier">meta</span>], <span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Added file to file store&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ObservedSubject</span>)
               <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
                       <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Couldn't add file #{file} to store.&quot;</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>
               <span class="ruby-keyword">end</span>
               
               <span class="ruby-identifier">meta</span>[<span class="ruby-value">:path</span>] = <span class="ruby-identifier">dstPath</span>
-              <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">add_or_update</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">meta</span>)
+              <span class="ruby-ivar">@meta_manager</span>.<span class="ruby-identifier">add_or_update</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">meta</span>)
               
               <span class="ruby-keyword">return</span> <span class="ruby-identifier">id</span>
       <span class="ruby-keyword">end</span></pre>
@@ -462,18 +441,18 @@ shouldMove: Determines wether to original file should be deleted</pre>
 
           
           <div class="method-source-code" id="get-source">
-            <pre><span class="ruby-comment"># File lib/filestore.rb, line 127</span>
+            <pre><span class="ruby-comment"># File lib/filestore/simple_store.rb, line 101</span>
         <span class="ruby-keyword">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">id</span>)
                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;No ID given&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-string">''</span>
-                <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;No file for ID #{id} found&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">has_id?</span>(<span class="ruby-identifier">id</span>)
+                <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;No file for ID #{id} found&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@meta_manager</span>.<span class="ruby-identifier">has_id?</span>(<span class="ruby-identifier">id</span>)
                 
-                <span class="ruby-identifier">md</span> = <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">get_data</span>(<span class="ruby-identifier">id</span>)
+                <span class="ruby-identifier">md</span> = <span class="ruby-ivar">@meta_manager</span>.<span class="ruby-identifier">get_data</span>(<span class="ruby-identifier">id</span>)
                 <span class="ruby-identifier">path</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">:path</span>]
 
                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;No valid meta data found for ID #{id}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">md</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">path</span>)
                 
-                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span> <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_STORE_GET</span>, 
-<span class="ruby-value">:objects</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">id</span>], <span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Returning file from file store&quot;</span>
+                <span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_STORE_GET</span>, 
+<span class="ruby-value">:objects</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">id</span>], <span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Returning file from file store&quot;</span>)  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ObservedSubject</span>)
                 
                 <span class="ruby-keyword">return</span> { <span class="ruby-value">:path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">path</span>), <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">md</span> }
         <span class="ruby-keyword">end</span></pre>
@@ -485,36 +464,6 @@ shouldMove: Determines wether to original file should be deleted</pre>
 
         
       </div><!-- get-method -->
-
-    
-      <div id="method-i-locked-3F" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">locked?</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Determines wether this store is locked</p>
-          
-
-          
-          <div class="method-source-code" id="locked-3F-source">
-            <pre><span class="ruby-comment"># File lib/filestore.rb, line 209</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">locked?</span>
-        <span class="ruby-keyword">return</span> <span class="ruby-ivar">@locked</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- locked-3F-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- locked-3F-method -->
 
     
       <div id="method-i-remove" class="method-detail ">
@@ -537,23 +486,23 @@ shouldMove: Determines wether to original file should be deleted</pre>
 
           
           <div class="method-source-code" id="remove-source">
-            <pre><span class="ruby-comment"># File lib/filestore.rb, line 147</span>
+            <pre><span class="ruby-comment"># File lib/filestore/simple_store.rb, line 121</span>
       <span class="ruby-keyword">def</span> <span class="ruby-identifier">remove</span>(<span class="ruby-identifier">id</span>)
               <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;No file ID given for removal&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-string">''</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">nil?</span>
-              <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;File ID for removal not found in store&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">has_id?</span>(<span class="ruby-identifier">id</span>)
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;File ID for removal not found in store&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@meta_manager</span>.<span class="ruby-identifier">has_id?</span>(<span class="ruby-identifier">id</span>)
               
-              <span class="ruby-identifier">file</span> = <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">get_data</span>(<span class="ruby-identifier">id</span>)[<span class="ruby-value">:path</span>]
+              <span class="ruby-identifier">file</span> = <span class="ruby-ivar">@meta_manager</span>.<span class="ruby-identifier">get_data</span>(<span class="ruby-identifier">id</span>)[<span class="ruby-value">:path</span>]
               
               <span class="ruby-keyword">begin</span>
-                      <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">remove</span>(<span class="ruby-identifier">id</span>)
+                      <span class="ruby-ivar">@meta_manager</span>.<span class="ruby-identifier">remove</span>(<span class="ruby-identifier">id</span>)
                       
-                      <span class="ruby-identifier">dir</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_daily_directory</span>(<span class="ruby-ivar">@deletedPath</span>)
+                      <span class="ruby-identifier">dir</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_daily_directory</span>(<span class="ruby-ivar">@deleted_path</span>)
                       <span class="ruby-identifier">dstPath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-identifier">id</span>)
                       
                       <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">move</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">dstPath</span>)
                       
-                      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span> <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_STORE_REMOVE</span>, 
-<span class="ruby-value">:objects</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">id</span>], <span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Deleted file from store&quot;</span>
+                      <span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_STORE_REMOVE</span>, 
+<span class="ruby-value">:objects</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">id</span>], <span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Deleted file from store&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ObservedSubject</span>)
               <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
                       <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Couldn't move file #{file} to deleted store.\n#{e.message}&quot;</span>
               <span class="ruby-keyword">end</span>
@@ -588,27 +537,28 @@ shouldMove: Determines wether to original file should be deleted</pre>
 
           
           <div class="method-source-code" id="restore-source">
-            <pre><span class="ruby-comment"># File lib/filestore.rb, line 173</span>
+            <pre><span class="ruby-comment"># File lib/filestore/simple_store.rb, line 147</span>
         <span class="ruby-keyword">def</span> <span class="ruby-identifier">restore</span>(<span class="ruby-identifier">id</span>)
                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-string">&quot;No file ID given for restore&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-string">''</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">nil?</span>
                 
                 <span class="ruby-keyword">begin</span>
-                  <span class="ruby-identifier">md</span> = <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">restore</span> <span class="ruby-identifier">id</span>
+                  <span class="ruby-identifier">md</span> = <span class="ruby-ivar">@meta_manager</span>.<span class="ruby-identifier">restore</span> <span class="ruby-identifier">id</span>
 <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Restoring meta data #{md}&quot;</span>
 <span class="ruby-identifier">file</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">:path</span>]
 
-                        <span class="ruby-identifier">dir</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_daily_directory</span>(<span class="ruby-ivar">@storePath</span>)
+                        <span class="ruby-identifier">dir</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">get_daily_directory</span>(<span class="ruby-ivar">@store_path</span>)
                         <span class="ruby-identifier">dstPath</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-identifier">id</span>)
                         
                         <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">move</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">dstPath</span>)
                         
-                        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span> <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_STORE_RESTORE</span>, 
-  <span class="ruby-value">:objects</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">id</span>], <span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Restored file from store&quot;</span>
+                        <span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_STORE_RESTORE</span>, 
+  <span class="ruby-value">:objects</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">id</span>], <span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Restored file from store&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ObservedSubject</span>)
                 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
                         <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Couldn't restore file #{file} from deleted store.\n#{e.message}&quot;</span>
                         <span class="ruby-comment">#</span>
                         <span class="ruby-comment"># Delete restored entry from metaManager</span>
-                        <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">id</span>)
+                        <span class="ruby-comment">#</span>
+                        <span class="ruby-ivar">@meta_manager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">id</span>)
                 <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span></pre>
           </div><!-- restore-source -->
@@ -637,14 +587,12 @@ shouldMove: Determines wether to original file should be deleted</pre>
 
           
           <div class="method-source-code" id="shutdown-source">
-            <pre><span class="ruby-comment"># File lib/filestore.rb, line 198</span>
+            <pre><span class="ruby-comment"># File lib/filestore/simple_store.rb, line 173</span>
         <span class="ruby-keyword">def</span> <span class="ruby-identifier">shutdown</span>
-                <span class="ruby-ivar">@metaManager</span>.<span class="ruby-identifier">shutdown</span>
+                <span class="ruby-ivar">@meta_manager</span>.<span class="ruby-identifier">shutdown</span>
                 
-                <span class="ruby-identifier">release_lock</span>
-                
-                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span> <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_STORE_SHUTDOWN</span>, 
-<span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;File store shutdown&quot;</span>
+                <span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_STORE_SHUTDOWN</span>, 
+<span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;File store shutdown&quot;</span>)  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ObservedSubject</span>)
         <span class="ruby-keyword">end</span></pre>
           </div><!-- shutdown-source -->
           

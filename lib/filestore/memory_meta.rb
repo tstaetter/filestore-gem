@@ -8,10 +8,9 @@ module FileStore
 	#
 	# Class implementing a memory based MetaManager
 	#
-	class MemoryMetaManager < MetaManager
+	class MemoryMetaManager
 	  include Logger
-	  include OberservedSubject
-	  
+
 		# Constant defining the default file path
 		FILE = 'meta.yaml'
 		# Accessor for the file to store data to
@@ -21,14 +20,13 @@ module FileStore
 		#
 		# Arguments:
 		# 	persistentFile: The file where the manager class is persisted to
+		#   logger: The logging facility
 		#
-		def initialize(persistentFile = '', logger)
+		def initialize(persistent_file = MemoryMetaManager::FILE, logger = StdoutLogger)
 		  @logger = logger
 			@data = Hash.new
 			@removed = Hash.new
-			@file = (persistentFile.nil? or persistentFile == '')? MemoryMetaManager::FILE : persistentFile
-			
-			self.initialize_obs
+			@file = (persistent_file.nil? or persistent_file == '') ? MemoryMetaManager::FILE : persistent_file
 			
 			begin
 				if File.exists?(@file)
@@ -62,8 +60,8 @@ module FileStore
 			
 			@data[id] = (@data.key?(id) ? @data[id].merge!(metaData) : @data[id] = metaData)
 			
-			self.inform ObserverAction.new(:type => ObserverAction::TYPE_META_ADD, 
-       :objects => [id, metaData], :msg => "Added/Updated file to meta store")
+			inform ObserverAction.new(:type => ObserverAction::TYPE_META_ADD, 
+       :objects => [id, metaData], :msg => "Added/Updated file to meta store")  if self.is_a?(ObservedSubject)
 		end
 		#
 		# see: MetaManager::remove
@@ -75,8 +73,8 @@ module FileStore
 			@removed[id] = @data[id]
 			@data.delete(id)
 			
-			self.inform ObserverAction.new(:type => ObserverAction::TYPE_META_REMOVE, 
-       :objects => [id], :msg => "Removed file to meta store")
+			inform ObserverAction.new(:type => ObserverAction::TYPE_META_REMOVE, 
+       :objects => [id], :msg => "Removed file to meta store") if self.is_a?(ObservedSubject)
 		end
 		#
 		# see: MetaManager::restore
@@ -88,26 +86,34 @@ module FileStore
 			@data[id] = @removed[id]
 			@removed.delete(id)
 			
-			self.inform ObserverAction.new(:type => ObserverAction::TYPE_META_RESTORE, 
-       :objects => [id], :msg => "Restored file in meta store")
+			inform ObserverAction.new(:type => ObserverAction::TYPE_META_RESTORE, 
+       :objects => [id], :msg => "Restored file in meta store") if self.is_a?(ObservedSubject)
 		end
 		#
-		# see: MetaManager::shutdown
+		# see: MetaManager::save
 		#
-		def shutdown
-			begin
-				File.open(@file, "wb+") do |fh|
-					YAML.dump({:current => @data, :removed => @removed}, fh)
-				end
-				
-				@data = nil
-				
-				self.inform ObserverAction.new(:type => ObserverAction::TYPE_META_SHUTDOWN, 
-          :msg => "Restored file in meta store")
-			rescue Exception => e
-				raise FileStoreException, "Couldn't serialize meta manager to file #{@file}.\n#{e.message}"
-			end
-		end
+		def save
+		  begin
+        @logger.info "Persisting meta store to #{@file}"
+        
+        File.open(@file, "wb+") do |fh|
+          YAML.dump({:current => @data, :removed => @removed}, fh)
+        end
+                
+        inform ObserverAction.new(:type => ObserverAction::TYPE_META_SHUTDOWN, 
+          :msg => "Shut down meta manager") if self.is_a?(ObservedSubject)
+      rescue Exception => e
+        raise FileStoreException, "Couldn't persist meta manager to file #{@file}.\n#{e.message}"
+      end
+    end
+    #
+    # see: MetaManager::shutdown
+    #
+    def shutdown
+      save
+      
+      @data = @removed = nil
+    end
 		#
 		# see: MetaManager::has_id?
 		#

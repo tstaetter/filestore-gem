@@ -47,7 +47,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/multitenant_filestore.rb
+    <li>lib/filestore/multitenant_store.rb
   </ul>
 </nav>
 
@@ -71,14 +71,6 @@
   
   
     <li><a class="include" href="Logger.html">FileStore::Logger</a>
-  
-  
-  
-    <li><a class="include" href="OberservedSubject.html">FileStore::OberservedSubject</a>
-  
-  
-  
-    <li><span class="include">Singleton</span>
   
   
   </ul>
@@ -106,8 +98,6 @@
     
     <li><a href="#method-i-remove_tenant_store">#remove_tenant_store</a>
     
-    <li><a href="#method-i-set_root_path">#set_root_path</a>
-    
     <li><a href="#method-i-shutdown">#shutdown</a>
     
   </ul>
@@ -124,9 +114,13 @@
   
     <li><a href="../FileStore.html">FileStore</a>
   
+    <li><a href="../FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  
     <li><a href="../FileStore/FileStoreException.html">FileStore::FileStoreException</a>
   
     <li><a href="../FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="../FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
   
     <li><a href="../FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
   
@@ -134,13 +128,17 @@
   
     <li><a href="../FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
   
-    <li><a href="../FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
+    <li><a href="../FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  
+    <li><a href="../FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
   
     <li><a href="../FileStore/Observer.html">FileStore::Observer</a>
   
     <li><a href="../FileStore/ObserverAction.html">FileStore::ObserverAction</a>
   
     <li><a href="../FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="../FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
   
     <li><a href="../FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
   
@@ -171,7 +169,7 @@
 
   <div id="description" class="description">
     
-<p>Singleton class implementing a multitenant file store</p>
+<p>Class implementing a multitenant file store</p>
 
   </div><!-- description -->
 
@@ -207,12 +205,12 @@
       <div id="attribute-i-stores" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">stores</span><span
-            class="attribute-access-type">[R]</span>
+            class="attribute-access-type">[RW]</span>
         </div>
 
         <div class="method-description">
         
-        <p>Accessors</p>
+        
         
         </div>
       </div>
@@ -230,7 +228,7 @@
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">()</span>
+            class="method-args">(root_path = ".", logger = StdoutLogger)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -243,12 +241,11 @@ href="MultiTenantFileStore.html">MultiTenantFileStore</a></p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/multitenant_filestore.rb, line 23</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>()
-        <span class="ruby-ivar">@rootPath</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">getwd</span>
+            <pre><span class="ruby-comment"># File lib/filestore/multitenant_store.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">root_path</span> = <span class="ruby-string">&quot;.&quot;</span>, <span class="ruby-identifier">logger</span> = <span class="ruby-constant">StdoutLogger</span>)
+        <span class="ruby-ivar">@rootPath</span> = <span class="ruby-identifier">root_path</span>
         <span class="ruby-ivar">@stores</span> = {}
-        
-        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">initialize_obs</span>
+        <span class="ruby-ivar">@logger</span> = <span class="ruby-identifier">logger</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -284,19 +281,25 @@ href="MultiTenantFileStore.html">MultiTenantFileStore</a></p>
 <pre>tenant: The tenant's ID
 file: The file to be added
 md: Optional meta data</pre>
+
+<p>Returns:</p>
+
+<pre>The file ID</pre>
           
 
           
           <div class="method-source-code" id="add_to_tenant-source">
-            <pre><span class="ruby-comment"># File lib/multitenant_filestore.rb, line 109</span>
-      <span class="ruby-keyword">def</span> <span class="ruby-identifier">add_to_tenant</span>(<span class="ruby-identifier">tenant</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">md</span> = {})
-              <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Tenant #{tenant} not registered. File #{file} can't be added.&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@stores</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">tenant</span>)
-              
-              <span class="ruby-ivar">@stores</span>[<span class="ruby-identifier">tenant</span>].<span class="ruby-identifier">add</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">md</span>)
-              
-              <span class="ruby-keyword">self</span>.<span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_MSTORE_ADD</span>, 
-<span class="ruby-value">:objects</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">tenant</span>, <span class="ruby-identifier">file</span>], <span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Added file to tenant&quot;</span>)
-      <span class="ruby-keyword">end</span></pre>
+            <pre><span class="ruby-comment"># File lib/filestore/multitenant_store.rb, line 93</span>
+          <span class="ruby-keyword">def</span> <span class="ruby-identifier">add_to_tenant</span>(<span class="ruby-identifier">tenant</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">md</span> = {})
+                  <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Tenant #{tenant} not registered. File #{file} can't be added.&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@stores</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">tenant</span>)
+                  
+                  <span class="ruby-identifier">f_id</span> = <span class="ruby-ivar">@stores</span>[<span class="ruby-identifier">tenant</span>].<span class="ruby-identifier">add</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">md</span>)
+                  
+                  <span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_MSTORE_ADD</span>, 
+    <span class="ruby-value">:objects</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">tenant</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">f_id</span>], <span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Added file to tenant #{tenant} with ID #{f_id}&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ObservedSubject</span>)
+    
+<span class="ruby-keyword">return</span> <span class="ruby-identifier">f_id</span>
+          <span class="ruby-keyword">end</span></pre>
           </div><!-- add_to_tenant-source -->
           
         </div>
@@ -332,20 +335,19 @@ md: Optional meta data</pre>
 
           
           <div class="method-source-code" id="create_tenant_store-source">
-            <pre><span class="ruby-comment"># File lib/multitenant_filestore.rb, line 52</span>
+            <pre><span class="ruby-comment"># File lib/filestore/multitenant_store.rb, line 34</span>
       <span class="ruby-keyword">def</span> <span class="ruby-identifier">create_tenant_store</span>(<span class="ruby-identifier">id</span> = <span class="ruby-string">''</span>)
               <span class="ruby-identifier">id</span> = <span class="ruby-constant">UUIDTools</span><span class="ruby-operator">::</span><span class="ruby-constant">UUID</span>.<span class="ruby-identifier">random_create</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-string">''</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">nil?</span>
               
               <span class="ruby-keyword">begin</span>
                       <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@rootPath</span>, <span class="ruby-identifier">id</span>)
                       <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)
-                      <span class="ruby-identifier">mm</span> = <span class="ruby-constant">MemoryMetaManager</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-string">&quot;meta.yaml&quot;</span>), <span class="ruby-keyword">self</span>.<span class="ruby-identifier">logger</span>)
-                      <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleFileStore</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">mm</span>, <span class="ruby-identifier">path</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">logger</span>)
+                      <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleStoreFactory</span><span class="ruby-operator">::</span><span class="ruby-identifier">create</span> <span class="ruby-identifier">path</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ObservedSubject</span>), <span class="ruby-ivar">@logger</span>
               
                       <span class="ruby-ivar">@stores</span>[<span class="ruby-identifier">id</span>] = <span class="ruby-identifier">sfs</span>
                       
-                      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_MSTORE_CREATE</span>, 
-<span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Created new tenant store&quot;</span>)
+                      <span class="ruby-identifier">inform</span> <span class="ruby-constant">ObserverAction</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">ObserverAction</span><span class="ruby-operator">::</span><span class="ruby-constant">TYPE_MSTORE_CREATE</span>, 
+<span class="ruby-value">:msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Created new tenant store&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ObservedSubject</span>)
               <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
                       <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Couldn't create multitenant store.\n#{e.message}&quot;</span>
               <span class="ruby-keyword">end</span>
@@ -388,7 +390,7 @@ file: The file to be retrieved</pre>
 
           
           <div class="method-source-code" id="get_from_tenant-source">
-            <pre><span class="ruby-comment"># File lib/multitenant_filestore.rb, line 140</span>
+            <pre><span class="ruby-comment"># File lib/filestore/multitenant_store.rb, line 126</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_from_tenant</span>(<span class="ruby-identifier">tenant</span>, <span class="ruby-identifier">id</span>)
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Given tenant #{tenant} isn't registered&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@stores</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">tenant</span>)
         
@@ -428,7 +430,7 @@ file: The file to be retrieved</pre>
 
           
           <div class="method-source-code" id="get_tenant_store-source">
-            <pre><span class="ruby-comment"># File lib/multitenant_filestore.rb, line 96</span>
+            <pre><span class="ruby-comment"># File lib/filestore/multitenant_store.rb, line 77</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_tenant_store</span>(<span class="ruby-identifier">id</span>)
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Tenant #{id} not registered. No file store given.&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@stores</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">id</span>)
         
@@ -464,7 +466,7 @@ file: The file to be retrieved</pre>
 
           
           <div class="method-source-code" id="has_tenant-3F-source">
-            <pre><span class="ruby-comment"># File lib/multitenant_filestore.rb, line 151</span>
+            <pre><span class="ruby-comment"># File lib/filestore/multitenant_store.rb, line 137</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">has_tenant?</span>(<span class="ruby-identifier">id</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-ivar">@stores</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">id</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -499,7 +501,7 @@ id: The ID of the file to be removed</pre>
 
           
           <div class="method-source-code" id="remove_from_tenant-source">
-            <pre><span class="ruby-comment"># File lib/multitenant_filestore.rb, line 124</span>
+            <pre><span class="ruby-comment"># File lib/filestore/multitenant_store.rb, line 110</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">remove_from_tenant</span>(<span class="ruby-identifier">tenant</span>, <span class="ruby-identifier">id</span>)
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Tenant #{tenant} not registered. File with ID {id} can't be removed.&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@stores</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">tenant</span>)
         
@@ -535,7 +537,7 @@ id: The ID of the file to be removed</pre>
 
           
           <div class="method-source-code" id="remove_tenant_store-source">
-            <pre><span class="ruby-comment"># File lib/multitenant_filestore.rb, line 77</span>
+            <pre><span class="ruby-comment"># File lib/filestore/multitenant_store.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">remove_tenant_store</span>(<span class="ruby-identifier">id</span>)
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Tenant #{id} can't be removed. Not registered.&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@stores</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">id</span>)
         
@@ -556,45 +558,6 @@ id: The ID of the file to be removed</pre>
       </div><!-- remove_tenant_store-method -->
 
     
-      <div id="method-i-set_root_path" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">set_root_path</span><span
-            class="method-args">(rootPath)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Sets the root path of the multitenant store. As <a
-href="MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a> is a
-singleton class, this method must be used before any other</p>
-
-<p>Arguments:</p>
-
-<pre>rootPath: The path to be used</pre>
-          
-
-          
-          <div class="method-source-code" id="set_root_path-source">
-            <pre><span class="ruby-comment"># File lib/multitenant_filestore.rb, line 36</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_root_path</span>(<span class="ruby-identifier">rootPath</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Root path #{rootPath} doesn't exist&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">rootPath</span>)
-        
-        <span class="ruby-ivar">@rootPath</span> = <span class="ruby-identifier">rootPath</span>
-        <span class="ruby-ivar">@stores</span> = <span class="ruby-constant">MultiTenantFileStore</span>.<span class="ruby-identifier">recover</span>(<span class="ruby-identifier">rootPath</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- set_root_path-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- set_root_path-method -->
-
-    
       <div id="method-i-shutdown" class="method-detail ">
         
         <div class="method-heading">
@@ -611,11 +574,12 @@ singleton class, this method must be used before any other</p>
 
           
           <div class="method-source-code" id="shutdown-source">
-            <pre><span class="ruby-comment"># File lib/multitenant_filestore.rb, line 157</span>
+            <pre><span class="ruby-comment"># File lib/filestore/multitenant_store.rb, line 143</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">shutdown</span>
         <span class="ruby-comment"># Shut down any tenant store</span>
-        <span class="ruby-ivar">@stores</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span>
-                <span class="ruby-identifier">s</span>.<span class="ruby-identifier">shutdown</span>
+        <span class="ruby-ivar">@stores</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">id</span>, <span class="ruby-identifier">store</span><span class="ruby-operator">|</span>
+          <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Shutting down file store for tenant #{id}&quot;</span>
+                <span class="ruby-identifier">store</span>.<span class="ruby-identifier">shutdown</span>
         <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- shutdown-source -->

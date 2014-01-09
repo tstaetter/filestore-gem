@@ -104,9 +104,13 @@
   
     <li><a href="./FileStore.html">FileStore</a>
   
+    <li><a href="./FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  
     <li><a href="./FileStore/FileStoreException.html">FileStore::FileStoreException</a>
   
     <li><a href="./FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="./FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
   
     <li><a href="./FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
   
@@ -114,13 +118,17 @@
   
     <li><a href="./FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
   
-    <li><a href="./FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
+    <li><a href="./FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  
+    <li><a href="./FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
   
     <li><a href="./FileStore/Observer.html">FileStore::Observer</a>
   
     <li><a href="./FileStore/ObserverAction.html">FileStore::ObserverAction</a>
   
     <li><a href="./FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="./FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
   
     <li><a href="./FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
   
@@ -187,7 +195,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File test/classes.rb, line 25</span>
+            <pre><span class="ruby-comment"># File test/classes.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>()
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
@@ -222,7 +230,7 @@
 
           
           <div class="method-source-code" id="notify-source">
-            <pre><span class="ruby-comment"># File test/classes.rb, line 28</span>
+            <pre><span class="ruby-comment"># File test/classes.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">notify</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">obj</span>)
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;[ObserverClass] received msg '#{msg.to_s}' from observed object #{obj}&quot;</span>
 <span class="ruby-keyword">end</span></pre>

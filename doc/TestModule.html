@@ -86,9 +86,13 @@
   
     <li><a href="./FileStore.html">FileStore</a>
   
+    <li><a href="./FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  
     <li><a href="./FileStore/FileStoreException.html">FileStore::FileStoreException</a>
   
     <li><a href="./FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="./FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
   
     <li><a href="./FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
   
@@ -96,13 +100,17 @@
   
     <li><a href="./FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
   
-    <li><a href="./FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
+    <li><a href="./FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  
+    <li><a href="./FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
   
     <li><a href="./FileStore/Observer.html">FileStore::Observer</a>
   
     <li><a href="./FileStore/ObserverAction.html">FileStore::ObserverAction</a>
   
     <li><a href="./FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="./FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
   
     <li><a href="./FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
   
@@ -169,19 +177,24 @@
 
           
           <div class="method-source-code" id="test_inclusion-source">
-            <pre><span class="ruby-comment"># File test/tc_module.rb, line 13</span>
+            <pre><span class="ruby-comment"># File test/tc_module.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">test_inclusion</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;TestModule::test_inclusion&quot;</span>
   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;=&quot;</span> * <span class="ruby-value">80</span>
+  
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">ObserverAction</span> }
-  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">OberservedSubject</span> }
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">ObservedSubject</span> }
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">Observer</span> }
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">SimpleFileStore</span> }
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">MultiTenantFileStore</span> }
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">MemoryMetaManager</span> }
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">MetaManager</span> }
   <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">FileStoreException</span> }
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">BaseFactory</span> }
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">MemoryMetaFactory</span> }
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">MultiTenantStoreFactory</span> }
+  <span class="ruby-identifier">assert_nothing_raised</span>(<span class="ruby-constant">NameError</span>) { <span class="ruby-constant">SimpleStoreFactory</span> }
 <span class="ruby-keyword">end</span></pre>
           </div><!-- test_inclusion-source -->
           

@@ -14,11 +14,13 @@ class TestMetaManager < FileStoreTest
     puts "=" * 80
     puts "TestMetaManager::test_init_shutdown"
     puts "=" * 80
+    
     assert_nothing_raised(FileStoreException) {
-      MemoryMetaManager.new File.join(@basePath, "meta.yaml"), StdoutLogger
+      mm = MemoryMetaFactory::create File.join(@basePathSimple, MemoryMetaManager::FILE)
     }
+    assert_not_nil(MemoryMetaFactory::create File.join(@basePathSimple, MemoryMetaManager::FILE))
     assert_nothing_raised(FileStoreException) {
-      mm = MemoryMetaManager.new File.join(@basePath, "meta.yaml"), StdoutLogger
+      mm = MemoryMetaFactory::create File.join(@basePathSimple, MemoryMetaManager::FILE)
       
       mm.shutdown
     }
@@ -35,19 +37,19 @@ class TestMetaManager < FileStoreTest
     o1.logger = StdoutLogger
     o2.logger = StdoutLogger
     
-    mm = MemoryMetaManager.new(File.join(@basePath, "meta.yaml"), StdoutLogger)
+    mm = MemoryMetaFactory::create File.join(@basePathSimple, MemoryMetaManager::FILE), true
     
     assert_nothing_raised(FileStoreException) {
       mm.register o1
       mm.register o2
     }
-    assert_raise(FileStoreException) { mm.register o1 }
+    assert_raise(FileStoreException) { mm.register "" }
     assert_nothing_raised(FileStoreException) {
       mm.unregister(o1)
       mm.unregister(o2)
     }
   end
-  
+   
   def test_actions_with_observer
     puts "=" * 80
     puts "TestMetaManager::test_actions_with_observer"
@@ -55,14 +57,15 @@ class TestMetaManager < FileStoreTest
     
     o1 = ObserverClass.new    
     o1.logger = StdoutLogger
-    mm = MemoryMetaManager.new(File.join(@basePath, "meta.yaml"), StdoutLogger)
+    mm = MemoryMetaFactory::create File.join(@basePathSimple, MemoryMetaManager::FILE), true
     
     mm.register o1
     
-    assert_nothing_raised(Exception) { mm.add_or_update "1", {} }
-    assert_nothing_raised(Exception) { mm.add_or_update "1", {} }
-    assert_nothing_raised(Exception) { mm.remove "1" }
-    assert_nothing_raised(Exception) { mm.restore "1" }
-    assert_nothing_raised(Exception) { mm.shutdown }
+    assert_nothing_raised(FileStoreException) { mm.add_or_update "1", {} }
+    assert_nothing_raised(FileStoreException) { mm.add_or_update "1", {} }
+    assert_nothing_raised(FileStoreException) { mm.remove "1" }
+    assert_nothing_raised(FileStoreException) { mm.restore "1" }
+    assert_nothing_raised(FileStoreException) { mm.shutdown }
   end
+  
 end

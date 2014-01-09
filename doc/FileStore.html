@@ -47,13 +47,14 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
+    <li>lib/filestore/factory.rb
+    <li>lib/filestore/log.rb
+    <li>lib/filestore/memory_meta.rb
+    <li>lib/filestore/meta_manager.rb
+    <li>lib/filestore/multitenant_store.rb
+    <li>lib/filestore/observer.rb
+    <li>lib/filestore/simple_store.rb
     <li>lib/filestore.rb
-    <li>lib/log.rb
-    <li>lib/memory_meta.rb
-    <li>lib/meta_manager.rb
-    <li>lib/multitenant_filestore.rb
-    <li>lib/observer.rb
-    <li>module.rb
   </ul>
 </nav>
 
@@ -63,30 +64,8 @@
   <div id="class-metadata">
     
     
-    <!-- Included Modules -->
-<nav id="includes-section" class="section">
-  <h3 class="section-header">Included Modules</h3>
-
-  <ul class="link-list">
-  
-  
-    <li><a class="include" href="FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
-  
-  
-  </ul>
-</nav>
-
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
-
-  <ul class="link-list">
     
-    <li><a href="#method-c-load_required">::load_required</a>
     
-  </ul>
-</nav>
-
   </div>
 
   <div id="project-metadata">
@@ -98,9 +77,13 @@
   
     <li><a href="./FileStore.html">FileStore</a>
   
+    <li><a href="./FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  
     <li><a href="./FileStore/FileStoreException.html">FileStore::FileStoreException</a>
   
     <li><a href="./FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="./FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
   
     <li><a href="./FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
   
@@ -108,13 +91,17 @@
   
     <li><a href="./FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
   
-    <li><a href="./FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
+    <li><a href="./FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  
+    <li><a href="./FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
   
     <li><a href="./FileStore/Observer.html">FileStore::Observer</a>
   
     <li><a href="./FileStore/ObserverAction.html">FileStore::ObserverAction</a>
   
     <li><a href="./FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="./FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
   
     <li><a href="./FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
   
@@ -145,11 +132,31 @@
 
   <div id="description" class="description">
     
+<p>store_factory.rb</p>
+
+<p>author: Thomas Stätter date: 2014/01/06</p>
+
 <p>log.rb @author Thomas Stätter @date 2012/11/26 @description</p>
+
+<p>memory_meta.rb</p>
+
+<p>author: Thomas Stätter date: 2012/11/08</p>
 
 <p>meta_manager.rb</p>
 
 <p>author: Thomas Stätter date: 2012/11/08</p>
+
+<p>multitenant_filestore.rb</p>
+
+<p>author: Thomas Stätter date: 2012/11/21</p>
+
+<p>observer.rb</p>
+
+<p>author: Thomas Stätter date: 2014/01/05</p>
+
+<p>filestore.rb</p>
+
+<p>author: Thomas Stätter date: 2012/11/07</p>
 
 <p>filestore.rb @author Thomas Stätter @date 2012/11/26 @description</p>
 
@@ -164,69 +171,11 @@
     
 
     
-    <!-- Constants -->
-    <section id="constants-list" class="section">
-      <h3 class="section-header">Constants</h3>
-      <dl>
-      
-        <dt id="LIB_FILES">LIB_FILES
-        
-        <dd class="description">
-        
-      
-        <dt id="VERSION">VERSION
-        
-        <dd class="description">
-        
-      
-      </dl>
-    </section>
-    
 
     
 
     <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-load_required" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">load_required</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Loads required libs as defined in FileStore::LIB_FILES</p>
-          
-
-          
-          <div class="method-source-code" id="load_required-source">
-            <pre><span class="ruby-comment"># File module.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">load_required</span>
-  <span class="ruby-identifier">$LOAD_PATH</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">__FILE__</span>))
-  
-  <span class="ruby-constant">LIB_FILES</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> 
-    <span class="ruby-identifier">require</span> <span class="ruby-identifier">l</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- load_required-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- load_required-method -->
-
-    
-    </section><!-- public-class-method-details -->
-  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->

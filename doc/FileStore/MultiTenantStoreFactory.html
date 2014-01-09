@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class FileStore::MultiTenantStoreFactory - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/filestore/factory.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="BaseFactory.html">FileStore::BaseFactory</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-create">::create</a>
+    
+    <li><a href="#method-c-recover_tenant_stores">::recover_tenant_stores</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../FileStore.html">FileStore</a>
+  
+    <li><a href="../FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  
+    <li><a href="../FileStore/FileStoreException.html">FileStore::FileStoreException</a>
+  
+    <li><a href="../FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="../FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
+  
+    <li><a href="../FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
+  
+    <li><a href="../FileStore/MetaManager.html">FileStore::MetaManager</a>
+  
+    <li><a href="../FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
+  
+    <li><a href="../FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  
+    <li><a href="../FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
+  
+    <li><a href="../FileStore/Observer.html">FileStore::Observer</a>
+  
+    <li><a href="../FileStore/ObserverAction.html">FileStore::ObserverAction</a>
+  
+    <li><a href="../FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="../FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
+  
+    <li><a href="../FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
+  
+    <li><a href="../FileStoreTest.html">FileStoreTest</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../ObserverClass.html">ObserverClass</a>
+  
+    <li><a href="../OtherObserverClass.html">OtherObserverClass</a>
+  
+    <li><a href="../TestFileStore.html">TestFileStore</a>
+  
+    <li><a href="../TestMetaManager.html">TestMetaManager</a>
+  
+    <li><a href="../TestModule.html">TestModule</a>
+  
+    <li><a href="../TestMultiTenantFileStore.html">TestMultiTenantFileStore</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class FileStore::MultiTenantStoreFactory</h1>
+
+  <div id="description" class="description">
+    
+<p><a href="MultiTenantFileStore.html">MultiTenantFileStore</a> factory class</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">(base_path, observable = false, logger = StdoutLogger)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a multi tenant store instance</p>
+
+<p>Arguments:</p>
+
+<pre>base_path: The directory of the multitenant store
+observable (optional): Determines wether this instance should support observation
+logger (optional): The logging facility</pre>
+
+<p>Returns:</p>
+
+<pre>A new instance of MultiTenantStore</pre>
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File lib/filestore/factory.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">base_path</span>, <span class="ruby-identifier">observable</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">logger</span> = <span class="ruby-constant">StdoutLogger</span>)
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-string">&quot;Creating new MultiTenantFileStore&quot;</span>
+  <span class="ruby-identifier">multi_store</span> = <span class="ruby-keyword">super</span> <span class="ruby-constant">MultiTenantFileStore</span>, <span class="ruby-identifier">base_path</span>, <span class="ruby-identifier">observable</span>, <span class="ruby-identifier">logger</span>
+  
+  <span class="ruby-identifier">multi_store</span>.<span class="ruby-identifier">stores</span> = <span class="ruby-constant">MultiTenantStoreFactory</span><span class="ruby-operator">::</span><span class="ruby-identifier">recover_tenant_stores</span>(<span class="ruby-identifier">base_path</span>, <span class="ruby-identifier">observable</span>, <span class="ruby-identifier">logger</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">base_path</span>)
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">multi_store</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-c-recover_tenant_stores" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">recover_tenant_stores</span><span
+            class="method-args">(root_path, observable, logger)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Recovers a multitenant store</p>
+
+<p>Arguments:</p>
+
+<pre>rootPath: The base path of the multitenant store
+logger (optional): The logging facility</pre>
+
+<p>Returns:</p>
+
+<pre>A hashset of file stores (with the user ID as key) recovered
+from the given directory</pre>
+          
+
+          
+          <div class="method-source-code" id="recover_tenant_stores-source">
+            <pre><span class="ruby-comment"># File lib/filestore/factory.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">recover_tenant_stores</span>(<span class="ruby-identifier">root_path</span>, <span class="ruby-identifier">observable</span>, <span class="ruby-identifier">logger</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">FileStoreException</span>, <span class="ruby-node">&quot;Root path #{rootPath} isn't a valid multitenant store&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">root_path</span>)
+  
+  <span class="ruby-identifier">stores</span> = {}
+  
+  <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-string">&quot;Trying to recover tenant stores&quot;</span>
+  
+  <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">root_path</span>, <span class="ruby-string">&quot;*&quot;</span>)).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">e</span>) <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">tenant</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">e</span>)
+        <span class="ruby-identifier">tenant_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">absolute_path</span> <span class="ruby-identifier">e</span>
+        
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Restoring tenant store in directory #{tenant_path}&quot;</span>
+        
+        <span class="ruby-identifier">sfs</span> = <span class="ruby-constant">SimpleStoreFactory</span><span class="ruby-operator">::</span><span class="ruby-identifier">create</span> <span class="ruby-identifier">tenant_path</span>, <span class="ruby-identifier">observable</span>, <span class="ruby-identifier">logger</span>
+    
+        <span class="ruby-identifier">stores</span>[<span class="ruby-identifier">tenant</span>] = <span class="ruby-identifier">sfs</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Couldn't create store for tenant #{tenant}.\n#{e}&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">stores</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- recover_tenant_stores-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- recover_tenant_stores-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

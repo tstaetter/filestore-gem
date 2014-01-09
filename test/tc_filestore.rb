@@ -3,7 +3,6 @@
 # @author Thomas Stätter
 # @date 2012/11/14
 #
-# require 'filestore'
 require './classes.rb'
 require 'test/unit'
 
@@ -16,14 +15,12 @@ class TestFileStore < FileStoreTest
     puts "TestFileStore::test_init_shutdown"
     puts "=" * 80
     
-    mm = MemoryMetaManager.new File.join(@basePath, "meta.yaml"), StdoutLogger
-    sfs = nil
-    
     assert_nothing_raised(FileStoreException) {
-      sfs = SimpleFileStore.new mm, @basePath, StdoutLogger
+      SimpleStoreFactory::create @basePathSimple
     }
-    assert_not_nil(sfs)
+    assert_not_nil(SimpleStoreFactory::create @basePathSimple)
     assert_nothing_raised(FileStoreException) {
+      sfs = SimpleStoreFactory::create @basePathSimple
       sfs.shutdown
     }
   end
@@ -33,8 +30,7 @@ class TestFileStore < FileStoreTest
     puts "TestFileStorage::test_registration_observer"
     puts "=" * 80
     
-    mm = MemoryMetaManager.new File.join(@basePath, "meta.yaml"), StdoutLogger
-    sfs = SimpleFileStore.new mm, @basePath, StdoutLogger
+    sfs = SimpleStoreFactory::create @basePathSimple, true
     o1 = OtherObserverClass.new
     o2 = ObserverClass.new
     
@@ -56,14 +52,13 @@ class TestFileStore < FileStoreTest
     
     o1 = ObserverClass.new    
     o1.logger = StdoutLogger
-    mm = MemoryMetaManager.new File.join(@basePath, "meta.yaml"), StdoutLogger
-    sfs = SimpleFileStore.new mm, @basePath, StdoutLogger
+    sfs = SimpleStoreFactory::create @basePathSimple, true
     id = nil
     
     sfs.register o1
     
     assert_nothing_raised(FileStoreException) { 
-      id = sfs.add @testFile, { :original_file => @testFile }, false
+      id = sfs.add @testFileSimple, { :original_file => @testFileSimple }, false
     }
     assert_nothing_raised(FileStoreException) { file = sfs.get id }
     assert_not_nil(sfs.get(id))

@@ -88,9 +88,13 @@
   
     <li><a href="./FileStore.html">FileStore</a>
   
+    <li><a href="./FileStore/BaseFactory.html">FileStore::BaseFactory</a>
+  
     <li><a href="./FileStore/FileStoreException.html">FileStore::FileStoreException</a>
   
     <li><a href="./FileStore/Logger.html">FileStore::Logger</a>
+  
+    <li><a href="./FileStore/MemoryMetaFactory.html">FileStore::MemoryMetaFactory</a>
   
     <li><a href="./FileStore/MemoryMetaManager.html">FileStore::MemoryMetaManager</a>
   
@@ -98,13 +102,17 @@
   
     <li><a href="./FileStore/MultiTenantFileStore.html">FileStore::MultiTenantFileStore</a>
   
-    <li><a href="./FileStore/OberservedSubject.html">FileStore::OberservedSubject</a>
+    <li><a href="./FileStore/MultiTenantStoreFactory.html">FileStore::MultiTenantStoreFactory</a>
+  
+    <li><a href="./FileStore/ObservedSubject.html">FileStore::ObservedSubject</a>
   
     <li><a href="./FileStore/Observer.html">FileStore::Observer</a>
   
     <li><a href="./FileStore/ObserverAction.html">FileStore::ObserverAction</a>
   
     <li><a href="./FileStore/SimpleFileStore.html">FileStore::SimpleFileStore</a>
+  
+    <li><a href="./FileStore/SimpleStoreFactory.html">FileStore::SimpleStoreFactory</a>
   
     <li><a href="./FileStore/StdoutLogger.html">FileStore::StdoutLogger</a>
   
@@ -171,14 +179,19 @@
 
           
           <div class="method-source-code" id="setup-source">
-            <pre><span class="ruby-comment"># File test/classes.rb, line 5</span>
+            <pre><span class="ruby-comment"># File test/classes.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">setup</span>
   <span class="ruby-comment"># create test directory and file</span>
-  <span class="ruby-ivar">@basePath</span> = <span class="ruby-node">&quot;#{Dir.getwd}/store_test&quot;</span>
-  <span class="ruby-ivar">@testFile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@basePath</span>, <span class="ruby-string">&quot;testfile.txt&quot;</span>)
+  <span class="ruby-ivar">@uid</span> = <span class="ruby-constant">Etc</span>.<span class="ruby-identifier">getlogin</span>
+  <span class="ruby-ivar">@basePathSimple</span> = <span class="ruby-node">&quot;#{Dir.getwd}/simple_store_test&quot;</span>
+  <span class="ruby-ivar">@basePathMulti</span> = <span class="ruby-node">&quot;#{Dir.getwd}/multi_store_test&quot;</span>
+  <span class="ruby-ivar">@testFileSimple</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@basePathSimple</span>, <span class="ruby-string">&quot;testfile.txt&quot;</span>)
+  <span class="ruby-ivar">@testFileMulti</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@basePathMulti</span>, <span class="ruby-string">&quot;testfile.txt&quot;</span>)
    
-  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-ivar">@basePath</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@basePath</span>)
-  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">touch</span>(<span class="ruby-ivar">@testFile</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@testFile</span>)
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-ivar">@basePathSimple</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@basePathSimple</span>)
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-ivar">@basePathMulti</span>) <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@basePathMulti</span>)
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">touch</span>(<span class="ruby-ivar">@testFileSimple</span>)
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">touch</span>(<span class="ruby-ivar">@testFileMulti</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- setup-source -->
           
@@ -206,10 +219,11 @@
 
           
           <div class="method-source-code" id="teardown-source">
-            <pre><span class="ruby-comment"># File test/classes.rb, line 14</span>
+            <pre><span class="ruby-comment"># File test/classes.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">teardown</span>
-  <span class="ruby-comment"># remove test directory and file</span>
-  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">remove_dir</span>(<span class="ruby-ivar">@basePath</span>, <span class="ruby-keyword">true</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@basePath</span>)
+  <span class="ruby-comment"># remove test directories and file</span>
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">remove_dir</span>(<span class="ruby-ivar">@basePathSimple</span>, <span class="ruby-keyword">true</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@basePathSimple</span>)
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">remove_dir</span>(<span class="ruby-ivar">@basePathMulti</span>, <span class="ruby-keyword">true</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-ivar">@basePathMulti</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- teardown-source -->
           

@@ -4,6 +4,14 @@
 # @date 2012/11/26
 # @description
 #
+module FileStore
+  #
+  # Base exception class used for errors occurring in this module
+  #
+  class FileStoreException < Exception
+  end
+end
+
 LIBS = [
   #
   # Required 3rd party libs
@@ -11,8 +19,7 @@ LIBS = [
   'uuidtools',
   'fileutils',
   'yaml',
-  'etc',
-  'singleton'
+  'etc'
 ]
 FILESTORE_FILES = [
   #
@@ -23,7 +30,8 @@ FILESTORE_FILES = [
   'log',
   'memory_meta',
   'simple_store',
-  'multitenant_store'
+  'multitenant_store',
+  'factory'
 ]
 #
 # Loads required 3rd party libs as defined in FileStore::LIBS
