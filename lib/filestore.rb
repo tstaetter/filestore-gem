@@ -19,7 +19,9 @@ LIBS = [
   'uuidtools',
   'fileutils',
   'yaml',
-  'etc'
+  'etc',
+  'socket',
+  'base64'
 ]
 FILESTORE_FILES = [
   #
@@ -31,7 +33,9 @@ FILESTORE_FILES = [
   'memory_meta',
   'simple_store',
   'multitenant_store',
-  'factory'
+  'factory',
+  'webdav/webdav',
+  'webdav_store'
 ]
 #
 # Loads required 3rd party libs as defined in FileStore::LIBS

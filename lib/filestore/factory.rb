@@ -208,4 +208,47 @@ module FileStore
       end
     end
   end
+  
+  module WebDAV
+    #
+    # WebDAVStore factory class
+    #
+    class WebDAVStoreFactory
+      #
+      # Creates a WebDAV file-store instance
+      #
+      # Arguments:
+      #   root_path: The base path directory
+      #   host: The WebDAV host
+      #   prefix: The path prefix for any URL
+      #   port (optional): The WebDAV port
+      #   user (optional): HTTP user
+      #   password (optional): HTTP password 
+      #   observable (optional): Determines wether this instance should support observation
+      #   logger (optional): The logging facility
+      #
+      # Returns:
+      #   A new instance of WebDAVStore
+      #
+      def self.create(root_path, host, prefix, port = 80, user = '', password = '', observable = false, logger = StdoutLogger)
+        store = nil
+        
+        begin
+          store = WebDAVStore.new host, port, user, password, root_path, logger
+          store.connection.path_prefix = prefix
+          
+          if observable then
+            logger.debug "Extending instance with module 'ObservedSubject'"
+            
+            store.extend ObservedSubject
+            store.initialize_obs 
+          end
+        rescue FileStoreException => e
+          logger.debug "Couldn't create webdav store.\nReason: #{e.message}"
+        end
+        
+        return store
+      end
+    end
+  end
 end

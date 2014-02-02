@@ -11,9 +11,12 @@ module FileStore
   #
   class ObserverAction
     TYPE_DEFAULT        = "DEFAULT"
+    TYPE_DAV_ADD        = "WEBDAV_ADD_FILE"
+    TYPE_DAV_REMOVE     = "WEBDAV_REMOVE_FILE"
     TYPE_STORE_ADD      = "STORE_ADD_FILE"
     TYPE_STORE_REMOVE   = "STORE_REMOVE_FILE"
     TYPE_STORE_GET      = "STORE_GET_FILE"
+    TYPE_DAV_GET        = "WEBDAV_GET_FILE"
     TYPE_STORE_RESTORE  = "STORE_RESTORE_FILE"
     TYPE_STORE_SHUTDOWN = "STORE_SHUTDOWN"
     TYPE_MSTORE_CREATE  = "MSTORE_CREATE_TENANT"
@@ -23,6 +26,7 @@ module FileStore
     TYPE_META_REMOVE    = "META_REMOVE_FILE"
     TYPE_META_RESTORE   = "META_RESTORE_FILE"
     TYPE_META_SHUTDOWN  = "META_SHUTDOWN"
+    TYPE_DAV_SHUTDOWN   = "DAV_SHUTDOWN"
     #
     # Attribute accessors for instance variable defining the type of
     # action
